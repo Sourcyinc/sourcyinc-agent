@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import { type Server } from "node:http";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 import type { Express } from "express";
 import { nanoid } from "nanoid";
@@ -9,6 +10,10 @@ import { createServer as createViteServer, createLogger } from "vite";
 import runApp from "./app";
 
 import viteConfig from "../vite.config";
+
+// Get __dirname equivalent for ES modules (compatible with Node.js 18+)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const viteLogger = createLogger();
 
@@ -34,12 +39,19 @@ export async function setupVite(app: Express, server: Server) {
   });
 
   app.use(vite.middlewares);
-  app.use("*", async (req, res, next) => {
+  
+  // Catch-all route for SPA - but only for non-API routes
+  app.get("*", async (req, res, next) => {
+    // Skip API routes - let them be handled by registerRoutes
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
+
     const url = req.originalUrl;
 
     try {
       const clientTemplate = path.resolve(
-        import.meta.dirname,
+        __dirname,
         "..",
         "client",
         "index.html",

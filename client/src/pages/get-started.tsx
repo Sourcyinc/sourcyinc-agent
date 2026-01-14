@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
 import { ArrowRight, Send, X, MessageCircle, Clock, CheckCircle2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import logo from "@assets/favi_1763705012744.png";
 
 interface Message {
@@ -17,6 +18,26 @@ export default function GetStarted() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  // Generate a unique chat session ID
+  const generateChatId = (): string => {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return `${Date.now()}-${Math.random().toString(36).substring(2, 15)}-${Math.random().toString(36).substring(2, 15)}`;
+  };
+
+  // Get or create chat ID from localStorage
+  const getOrCreateChatId = (): string => {
+    const STORAGE_KEY = "sourcy_chat_session_id";
+    let chatId = localStorage.getItem(STORAGE_KEY);
+    if (!chatId) {
+      chatId = generateChatId();
+      localStorage.setItem(STORAGE_KEY, chatId);
+    }
+    return chatId;
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -25,6 +46,17 @@ export default function GetStarted() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  // Auto-resize textarea
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      const maxHeight = 120;
+      const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+      textarea.style.height = `${newHeight}px`;
+    }
+  }, [inputValue]);
 
   useEffect(() => {
     if (chatOpen && messages.length === 0) {
@@ -53,7 +85,7 @@ export default function GetStarted() {
     }
   }, [chatOpen]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
     
     const userMessage: Message = {
@@ -63,26 +95,53 @@ export default function GetStarted() {
     };
     
     setMessages(prev => [...prev, userMessage]);
+    const messageText = inputValue;
     setInputValue("");
     
     setIsTyping(true);
-    setTimeout(() => {
-      const responses = [
-        "That's a great area to explore! Many businesses face similar challenges. Our AI agents can handle repetitive conversations, qualify leads, and automate follow-ups — all while sounding natural and professional.",
-        "Interesting! Based on what you've shared, I'd recommend exploring our Voice Agents for customer-facing interactions or Text Agents for workflow automation. Would you like to know more about either?",
-        "Perfect. To give you the most relevant recommendations, could you tell me a bit about your industry and team size?",
-        "Thanks for sharing! I think we can definitely help. We'll review your needs and reach out with tailored solutions. In the meantime, feel free to explore our Agents page for more details."
-      ];
+    
+    try {
+      const chatId = getOrCreateChatId();
       
-      const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+      // Send to backend API (same as brightcoast)
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: messageText,
+          sender: "user",
+          timestamp: new Date().toISOString(),
+          chatId: chatId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      const data = await response.json();
       
+      setIsTyping(false);
+      
+      // Add agent response if provided by n8n
+      if (data.response || data.message) {
+        setMessages(prev => [...prev, {
+          id: prev.length + 1,
+          sender: "agent",
+          text: data.response || data.message || "Thanks for your message! Our team will get back to you shortly."
+        }]);
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setIsTyping(false);
       setMessages(prev => [...prev, {
         id: prev.length + 1,
         sender: "agent",
-        text: randomResponse
+        text: "Sorry, there was an error sending your message. Please try again."
       }]);
-      setIsTyping(false);
-    }, 1500 + Math.random() * 1000);
+    }
   };
 
   return (
@@ -266,7 +325,7 @@ export default function GetStarted() {
                       </div>
                     )}
                     <div
-                      className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
+                      className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
                         msg.sender === "user"
                           ? "bg-gradient-to-r from-cyan-500 to-teal-500 text-white rounded-br-md"
                           : "bg-slate-800 text-slate-200 border border-slate-700 rounded-bl-md"
@@ -302,27 +361,27 @@ export default function GetStarted() {
               </div>
 
               <div className="p-5 bg-slate-900 border-t border-cyan-500/20">
-                <div className="flex gap-3">
-                  <input
-                    type="text"
+                <div className="flex gap-3 items-end">
+                  <Textarea
+                    ref={textareaRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
-                    placeholder="Type your message..."
-                    className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3.5 text-base text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors"
+                    placeholder="Type your message... (Press Enter for new line)"
+                    className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors resize-none overflow-hidden min-h-[48px] max-h-[120px] leading-relaxed"
+                    rows={1}
                     data-testid="input-chat-message"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={!inputValue.trim()}
-                    className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white px-5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all border-0"
+                    className="bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-600 hover:to-teal-600 text-white px-5 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all border-0 h-12 shrink-0"
                     data-testid="button-send-message"
                   >
                     <Send className="h-5 w-5" />
                   </Button>
                 </div>
                 <p className="text-xs text-slate-500 mt-3 text-center">
-                  Press <span className="font-medium text-slate-400">Enter</span> to send your message
+                  Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">Enter</kbd> for a new line, click the send button to send your message
                 </p>
               </div>
             </motion.div>

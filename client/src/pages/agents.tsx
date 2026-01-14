@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Link, useSearch } from "wouter";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { useState, useRef, useEffect } from "react";
 
 const voiceAgents = [
@@ -693,7 +694,28 @@ function TextAgentWidget() {
     { role: "agent", text: "Hello! I'm Mr. Sourcy. How can I help you today?" },
   ]);
   const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  
+  // Generate a unique chat session ID
+  const generateChatId = (): string => {
+    if (typeof crypto !== "undefined" && crypto.randomUUID) {
+      return crypto.randomUUID();
+    }
+    return `${Date.now()}-${Math.random().toString(36).substring(2, 15)}-${Math.random().toString(36).substring(2, 15)}`;
+  };
+
+  // Get or create chat ID from localStorage
+  const getOrCreateChatId = (): string => {
+    const STORAGE_KEY = "sourcy_agent_chat_session_id";
+    let chatId = localStorage.getItem(STORAGE_KEY);
+    if (!chatId) {
+      chatId = generateChatId();
+      localStorage.setItem(STORAGE_KEY, chatId);
+    }
+    return chatId;
+  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -705,21 +727,72 @@ function TextAgentWidget() {
     }
   }, [messages, isOpen]);
 
-  const handleSend = () => {
+  // Auto-resize textarea
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+      const maxHeight = 120;
+      const newHeight = Math.min(textarea.scrollHeight, maxHeight);
+      textarea.style.height = `${newHeight}px`;
+    }
+  }, [inputValue]);
+
+  const handleSend = async () => {
     if (!inputValue.trim()) return;
 
     setMessages((prev) => [...prev, { role: "user", text: inputValue }]);
+    const messageText = inputValue;
     setInputValue("");
 
-    setTimeout(() => {
+    setIsTyping(true);
+
+    try {
+      const chatId = getOrCreateChatId();
+      
+      // Send to backend API (same as brightcoast)
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message: messageText,
+          sender: "user",
+          timestamp: new Date().toISOString(),
+          chatId: chatId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      const data = await response.json();
+      
+      setIsTyping(false);
+      
+      // Add agent response if provided by n8n
+      if (data.response || data.message) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "agent",
+            text: data.response || data.message || "Thanks for your message! Our team will get back to you shortly.",
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      setIsTyping(false);
       setMessages((prev) => [
         ...prev,
         {
           role: "agent",
-          text: "That soundsss interesting! I'm a demo agent, but our real agents can handle that and much more.",
+          text: "Sorry, there was an error sending your message. Please try again.",
         },
       ]);
-    }, 1000);
+    }
   };
 
   return (
@@ -765,7 +838,7 @@ function TextAgentWidget() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[80%] p-3 rounded-2xl text-sm ${msg.role === "user" ? "bg-emerald-600 text-white rounded-tr-sm" : "bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-sm"}`}
+                    className={`max-w-[80%] p-3 rounded-2xl text-sm whitespace-pre-line ${msg.role === "user" ? "bg-emerald-600 text-white rounded-tr-sm" : "bg-slate-800 text-slate-200 border border-slate-700 rounded-tl-sm"}`}
                   >
                     {msg.text}
                   </div>
@@ -775,21 +848,38 @@ function TextAgentWidget() {
             </div>
 
             {/* Chat Input */}
-            <div className="p-3 bg-slate-900 border-t border-slate-800 flex gap-2">
-              <input
-                className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500/50 placeholder:text-slate-600"
-                placeholder="Type a message..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              />
-              <button
-                onClick={handleSend}
-                className="p-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={!inputValue.trim()}
-              >
-                <Send className="h-4 w-4" />
-              </button>
+            <div className="p-3 bg-slate-900 border-t border-slate-800">
+              <div className="flex gap-2 items-end">
+                <Textarea
+                  ref={textareaRef}
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  placeholder="Type a message... (Press Enter for new line)"
+                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500/50 placeholder:text-slate-600 resize-none overflow-hidden min-h-[40px] max-h-[120px] leading-relaxed"
+                  rows={1}
+                />
+                <button
+                  onClick={handleSend}
+                  className="p-2 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed h-10 shrink-0"
+                  disabled={!inputValue.trim()}
+                >
+                  <Send className="h-4 w-4" />
+                </button>
+              </div>
+              <p className="text-xs text-slate-500 mt-2 text-center">
+                Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">Enter</kbd> for a new line, click the send button to send your message
+              </p>
+              {isTyping && (
+                <div className="flex justify-start mt-2">
+                  <div className="bg-slate-800 text-slate-400 px-3 py-2 rounded-xl border border-slate-700">
+                    <div className="flex gap-1.5">
+                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </motion.div>
         ) : (
