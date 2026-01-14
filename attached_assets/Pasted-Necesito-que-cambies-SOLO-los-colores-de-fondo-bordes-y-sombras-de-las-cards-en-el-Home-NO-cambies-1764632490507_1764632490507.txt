@@ -1,0 +1,69 @@
+Necesito que cambies SOLO los colores de fondo, bordes y sombras de las cards en el Home. NO cambies textos, íconos ni estructura.
+
+## SECCIÓN "WHY SOURCY?" - Cards de estadísticas
+
+**Card 1 (Multilingual):**
+background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.8), rgba(107, 33, 168, 0.6), #0f172a);
+border: 2px solid #818cf8;
+box-shadow: 0 25px 50px -12px rgba(129, 140, 248, 0.7);
+
+**Card 2 (< 2 min - Response Time):**
+background: linear-gradient(to bottom right, rgba(136, 19, 55, 0.8), rgba(157, 23, 77, 0.6), #0f172a);
+border: 2px solid #fb7185;
+box-shadow: 0 25px 50px -12px rgba(251, 113, 133, 0.7);
+
+**Card 3 (+30% - ROI Increase):**
+background: linear-gradient(to bottom right, rgba(19, 78, 74, 0.8), rgba(4, 120, 87, 0.6), #0f172a);
+border: 2px solid #2dd4bf;
+box-shadow: 0 25px 50px -12px rgba(45, 212, 191, 0.7);
+
+**Card 4 (70% - Efficiency Boost):**
+background: linear-gradient(to bottom right, rgba(12, 74, 110, 0.8), rgba(30, 64, 175, 0.6), #0f172a);
+border: 2px solid #38bdf8;
+box-shadow: 0 25px 50px -12px rgba(56, 189, 248, 0.7);
+
+
+## SECCIÓN "THE CORE PILLARS OF AUTOMATION" - Cards de features
+
+**Card 1 (Voice Automation):**
+background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.8), rgba(107, 33, 168, 0.6), #0f172a);
+border: 2px solid #818cf8;
+box-shadow: 0 25px 50px -12px rgba(129, 140, 248, 0.7);
+
+**Card 2 (Intelligent Text):**
+background: linear-gradient(to bottom right, rgba(136, 19, 55, 0.8), rgba(157, 23, 77, 0.6), #0f172a);
+border: 2px solid #fb7185;
+box-shadow: 0 25px 50px -12px rgba(251, 113, 133, 0.7);
+
+**Card 3 (Data Driven):**
+background: linear-gradient(to bottom right, rgba(19, 78, 74, 0.8), rgba(4, 120, 87, 0.6), #0f172a);
+border: 2px solid #2dd4bf;
+box-shadow: 0 25px 50px -12px rgba(45, 212, 191, 0.7);
+
+
+## EFECTO HOVER (opcional pero recomendado)
+
+Agregar este efecto cuando el usuario pase el mouse sobre las cards:
+
+.card:hover {
+  transform: scale(1.05) translateY(-8px);
+  transition: all 0.3s ease;
+}
+
+
+## RESUMEN DE COLORES
+
+| Card | Color Principal | Borde | Glow |
+|------|----------------|-------|------|
+| 1 | Indigo/Purple | #818cf8 | indigo |
+| 2 | Rose/Pink | #fb7185 | rose |
+| 3 | Teal/Emerald | #2dd4bf | teal |
+| 4 | Sky/Blue | #38bdf8 | sky |
+
+
+## IMPORTANTE
+- NO cambiar textos ni contenido
+- NO cambiar íconos
+- NO cambiar estructura ni layout
+- SOLO aplicar los colores de fondo, bordes y sombras indicados
+- El border-radius de las cards debe ser 16px (rounded-2xl)

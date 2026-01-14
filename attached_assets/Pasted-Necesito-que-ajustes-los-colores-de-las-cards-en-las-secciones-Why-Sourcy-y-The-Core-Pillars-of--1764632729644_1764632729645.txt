@@ -1,0 +1,55 @@
+Necesito que ajustes los colores de las cards en las secciones "Why Sourcy?" y "The Core Pillars of Automation". Los colores actuales están muy brillantes/neón. Quiero que queden más suaves, similares a las cards de "Our Specialized Agents" - con color visible pero no agresivo, y solo un sutil toque de neón en el borde.
+
+## SECCIÓN "WHY SOURCY?" - Cards de estadísticas
+
+**Card 1 (Multilingual):**
+background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.5), rgba(30, 27, 75, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(129, 140, 248, 0.3);
+box-shadow: 0 4px 20px rgba(129, 140, 248, 0.15);
+
+**Card 2 (< 2 min - Response Time):**
+background: linear-gradient(to bottom right, rgba(136, 19, 55, 0.5), rgba(76, 5, 25, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(251, 113, 133, 0.3);
+box-shadow: 0 4px 20px rgba(251, 113, 133, 0.15);
+
+**Card 3 (+30% - ROI Increase):**
+background: linear-gradient(to bottom right, rgba(19, 78, 74, 0.5), rgba(6, 45, 42, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(45, 212, 191, 0.3);
+box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);
+
+**Card 4 (70% - Efficiency Boost):**
+background: linear-gradient(to bottom right, rgba(12, 74, 110, 0.5), rgba(7, 42, 64, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(56, 189, 248, 0.3);
+box-shadow: 0 4px 20px rgba(56, 189, 248, 0.15);
+
+
+## SECCIÓN "THE CORE PILLARS OF AUTOMATION" - Cards de features
+
+**Card 1 (Voice Automation):**
+background: linear-gradient(to bottom right, rgba(49, 46, 129, 0.5), rgba(30, 27, 75, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(129, 140, 248, 0.3);
+box-shadow: 0 4px 20px rgba(129, 140, 248, 0.15);
+
+**Card 2 (Intelligent Text):**
+background: linear-gradient(to bottom right, rgba(136, 19, 55, 0.5), rgba(76, 5, 25, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(251, 113, 133, 0.3);
+box-shadow: 0 4px 20px rgba(251, 113, 133, 0.15);
+
+**Card 3 (Data Driven):**
+background: linear-gradient(to bottom right, rgba(19, 78, 74, 0.5), rgba(6, 45, 42, 0.6), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(45, 212, 191, 0.3);
+box-shadow: 0 4px 20px rgba(45, 212, 191, 0.15);
+
+
+## CAMBIOS PRINCIPALES vs ANTERIOR:
+- Opacidad del gradiente: reducida de 0.8 a 0.5
+- Borde: reducido de 2px a 1px
+- Opacidad del borde: reducida de 100% a 30%
+- Box-shadow: reducido de 70% a 15% de opacidad
+- Resultado: colores visibles pero suaves, con toque sutil de neón
+
+## IMPORTANTE
+- NO cambiar textos ni contenido
+- NO cambiar íconos
+- NO cambiar estructura ni layout
+- Mantener el efecto hover si ya existe

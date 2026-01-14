@@ -1,0 +1,102 @@
+You are working on the **Home page – “Get in Touch” section** and its associated contact form modal.
+
+Apply ALL changes below in a single update.  
+Do NOT partially implement.
+
+---
+
+## SECTION TITLE VISIBILITY (MANDATORY)
+
+- Change the **“Get in Touch”** heading color to **pure white**.
+- Ensure it has enough contrast to be clearly visible on the dark background.
+- Do NOT change font size, weight, or alignment—only color/contrast.
+
+---
+
+## INTRODUCTORY COPY UPDATE (MANDATORY)
+
+Replace the current paragraph that references **construction** or any specific industry.
+
+### REMOVE any mention of:
+- Construction
+- Industry-specific language
+
+### REPLACE with a more human, outcome-focused message inspired by Jeremy Miner’s tone:
+
+- Focus on:
+  - Reducing wasted time
+  - Removing repetitive work
+  - Having something capable, reliable, and always available
+- Avoid hype, buzzwords, or technical jargon
+- Keep it calm, confident, and empathetic
+
+### Example tone guidance (DO NOT copy verbatim):
+> Helping teams stop spending time on simple tasks and focus on what actually moves the business forward.
+
+The final copy should feel:
+- Human
+- Consultative
+- Solution-oriented
+- Industry-agnostic
+
+---
+
+## FORM FIELD CHANGES (MANDATORY)
+
+### 1) Split “Full Name” into two fields
+Replace the single “Full Name” field with:
+
+- **First Name**
+- **Last Name**
+
+They must be two separate inputs.
+
+---
+
+### 2) Keep Company Name
+Ensure the form includes:
+
+- **Company Name**
+
+(No changes to behavior.)
+
+---
+
+### 3) Change “Industry Niche” to an open input
+Replace the dropdown field:
+
+- Remove the **Industry Niche** select list
+- Add a **free-text input** labeled:
+
+**Industry**
+
+This must NOT be a dropdown.
+
+---
+
+### 4) Keep “How can we help?”
+- Do NOT change the label, placeholder, or behavior of this field.
+
+---
+
+## FOOTER EMAIL UPDATE (MANDATORY)
+
+Below the form, update the email line.
+
+Replace:
+hello@sourcy.ai
+
+With:
+**innovation.ia@sourcyinc.com**
+
+Do NOT change the surrounding text.
+
+---
+
+## STRICT CONSTRAINTS (NON-NEGOTIABLE)
+
+- Do NOT add new fields.
+- Do NOT remove existing required fields (other than replacing Full Name).
+- Do NOT change button text (“Send Request”).
+- Do NOT change spacing, layout, or modal behavior unless required to apply these changes.
+- Do NOT introduce industry-specific positioning.

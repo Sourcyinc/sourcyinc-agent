@@ -1,0 +1,84 @@
+Necesito que rediseñes el HOME de mi página web de Sourcy para que tenga armonía visual profesional. Aquí están los cambios específicos:
+
+## PALETA DE COLORES UNIFICADA
+Usa esta paleta en TODA la página:
+- Fondo principal: #0f172a (slate-900) o #020617 (slate-950)
+- Fondo secundario para cards: #1e293b (slate-800)
+- Bordes sutiles: rgba(51, 65, 85, 0.5) o #334155
+- Texto principal: #ffffff
+- Texto secundario: #94a3b8 (slate-400)
+- Acento primario: #06b6d4 (cyan-500)
+- Acento secundario: #2dd4bf (teal-400)
+- Gradiente de acento: linear-gradient(to right, #06b6d4, #2dd4bf)
+
+## CAMBIOS POR SECCIÓN
+
+### 1. SECCIÓN "WHY SOURCY?" (actualmente blanca)
+- Cambiar fondo blanco a: background-color: #0f172a
+- Cambiar texto del título "Why Sourcy?" a color blanco
+- Cambiar texto del párrafo a: color: #94a3b8
+- Cards: cambiar fondo a #1e293b con borde: 1px solid rgba(51, 65, 85, 0.5)
+- Títulos dentro de cards (Multilingual, <2min, etc.): color blanco
+- Subtítulos de acento (Any Language, Response Time, etc.): color #2dd4bf
+- Texto descriptivo: color #94a3b8
+- Iconos: mantener el color cyan/teal
+
+### 2. SECCIÓN "THE CORE PILLARS OF AUTOMATION" (actualmente blanca)
+- Cambiar fondo a: #0f172a
+- Título: color blanco
+- Subtítulo: color #94a3b8
+- Cards (Voice Automation, Intelligent Text, Data Driven):
+  - Fondo: #1e293b
+  - Borde: 1px solid rgba(51, 65, 85, 0.5)
+  - El efecto de "onda" en las esquinas: usar rgba(6, 182, 212, 0.1) en vez de colores claros
+  - Títulos: blanco
+  - Descripciones: #94a3b8
+
+### 3. SECCIÓN "OUR SPECIALIZED AGENTS" (parte superior blanca)
+- Cambiar el fondo de la parte superior (donde dice el título) a: #0f172a
+- Las cards oscuras que ya tienes están bien, mantenerlas
+- Asegurar que el título sea blanco y el subtítulo #94a3b8
+
+### 4. SECCIÓN "TRUSTED BY LEADING COMPANIES"
+- Si está en fondo claro, cambiar a: #0f172a o integrarla mejor
+- Logos de empresas: mantenerlos pero sobre fondo oscuro
+- Puedes usar un contenedor con fondo #1e293b y borde sutil
+
+### 5. TRANSICIONES ENTRE SECCIONES
+- Agregar un degradado suave entre secciones para evitar cortes bruscos
+- Usar: background: linear-gradient(to bottom, #0f172a, #020617) donde sea necesario
+- Agregar padding vertical consistente: 80px arriba y abajo en cada sección
+
+## ESTILO DE CARDS UNIFICADO
+Todas las cards deben seguir este estilo:
+```css
+.card {
+  background-color: #1e293b;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: rgba(6, 182, 212, 0.5);
+  box-shadow: 0 0 30px rgba(6, 182, 212, 0.1);
+}
+```
+
+## EFECTOS DECORATIVOS (OPCIONAL)
+Para las secciones importantes, agregar un resplandor sutil:
+```css
+.section-glow {
+  background: radial-gradient(ellipse at center top, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+}
+```
+
+## RESUMEN DE CAMBIOS CRÍTICOS
+1. Eliminar TODOS los fondos blancos/claros
+2. Usar #0f172a como fondo principal en toda la página
+3. Cards con fondo #1e293b y bordes sutiles
+4. Texto principal blanco, secundario #94a3b8
+5. Acentos en cyan (#06b6d4) y teal (#2dd4bf)
+6. Padding consistente de 80px entre secciones
+7. Hover effects sutiles con brillo cyan

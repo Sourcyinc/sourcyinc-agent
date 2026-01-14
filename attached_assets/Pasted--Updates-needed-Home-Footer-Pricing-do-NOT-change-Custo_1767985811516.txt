@@ -1,0 +1,63 @@
+## Updates needed (Home + Footer + Pricing) — do NOT change Custom Solutions behavior
+
+### 1) HOME page — make the “Automations” button match the other buttons
+- Keep the same layout and text.
+- The “Automations” CTA currently looks flat compared to “Explore Agents” and “Try Me”.
+- Update ONLY the “Automations” button styling so it has the same “life” as the other CTAs (same premium glow, depth, hover/active states, subtle shadow, and gradient feel).
+- Do NOT make it look flashy or “christmas lights”. It should feel futuristic, clean, and consistent with the Sourcy theme.
+
+### 2) FOOTER — Products column
+- Add “Automations” under **Products** (same style as other links).
+- Remove “About Us” from the footer completely.
+
+### 3) PRICING page — Automations card copy (symmetry fix)
+- On the **Pricing** page, inside the **Automations** pricing card, replace the long description with this shorter text so the “Talk to Our Team” button aligns visually with the other “Get Started” buttons:
+
+**New Automations description (exact text):**
+“Smart automations that run your workflows in the background.”
+
+- Do not change the rest of the pricing layout.
+
+### 4) NAVIGATION BEHAVIOR — always land at the top OR the correct section
+Right now, clicking items (especially from the footer) sometimes lands mid page. Fix the navigation rules below:
+
+#### Global rule (top of page)
+- When clicking any main nav link in the header:
+  - Home
+  - Agents
+  - Automations
+  - Pricing
+  - Get Started
+The page should always load at the **top** (scroll to top on route change).
+
+#### Footer “Products” links must deep link to the correct section
+- Footer → **Voice Agents**
+  - Must navigate to the **Agents** page and land at the **Voice Agents** section (scroll to that section) and ensure the toggle/tab is set to Voice.
+- Footer → **Text Agents**
+  - Must navigate to the **Agents** page and land at the **Text Agents** section (scroll to that section) and ensure the toggle/tab is set to Text.
+- Footer → **Automations**
+  - Must navigate to the **Automations** page and land at the **top** of that page.
+
+#### IMPORTANT: do NOT change Custom Solutions behavior
+- Footer → **Custom Solutions** is the only one currently working correctly.
+- Keep its behavior exactly as it is (do NOT force it to scroll to top or change its target/anchor).
+
+### 5) Implementation expectation
+- Use correct anchors/IDs on sections (or route state) and force `scrollTo(0,0)` on normal route changes.
+- For Voice/Text Agents deep links, implement a reliable “scroll into view + set correct tab” behavior after navigation.
+
+That’s it. Make ONLY these updates.
+
+### ADDITION — Header navigation must always scroll to top
+
+Also add the following rule explicitly:
+
+- When clicking any item in the **HEADER navigation**:
+  - Home
+  - Agents
+  - Automations
+  - Pricing
+
+The page must **always load at the very top of the screen** (`scrollTo(0,0)` on navigation).
+
+This applies **only to header navigation** and does **not** affect deep links handled from the footer (Voice Agents, Text Agents) or the existing **Custom Solutions** behavior, which must remain unchanged.

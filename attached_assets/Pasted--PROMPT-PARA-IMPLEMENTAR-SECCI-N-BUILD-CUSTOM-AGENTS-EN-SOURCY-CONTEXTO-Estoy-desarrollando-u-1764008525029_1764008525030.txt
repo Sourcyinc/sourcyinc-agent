@@ -1,0 +1,355 @@
+# PROMPT PARA IMPLEMENTAR SECCIÓN "BUILD CUSTOM AGENTS" EN SOURCY
+
+## CONTEXTO
+Estoy desarrollando una landing page para Sourcy, una plataforma de AI agents para la industria de construcción. Necesito que implementes una nueva sección llamada "Build Custom Agents for Your Unique Workflow" que debe ser visualmente profesional, moderna y alineada con la identidad tech de la marca.
+
+---
+
+## REQUISITOS ESPECÍFICOS
+
+### 1. UBICACIÓN EN LA PÁGINA
+- Esta sección va DESPUÉS de la sección "Pillars" (Voice Automation, Intelligent Text, Data Driven)
+- Va ANTES de la sección "Why Sourcy" 
+- Debe ser una sección completa con padding y espaciado consistente
+
+### 2. ESTRUCTURA HTML/COMPONENTES
+La sección debe tener la siguiente estructura:
+
+```
+┌─ SECTION PADRE ────────────────────────────────────────┐
+│                                                          │
+│  ┌─ BADGE ─────────────────────────────────────────┐   │
+│  │ BEYOND STANDARD AGENTS                          │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                          │
+│  ┌─ TÍTULO ────────────────────────────────────────┐   │
+│  │ Build Custom Agents for Your Unique Workflow    │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                          │
+│  ┌─ DESCRIPCIÓN ──────────────────────────────────┐   │
+│  │ Pre-built agents are just the start. Tell us    │   │
+│  │ what you need, and we'll build it. From complex │   │
+│  │ integrations to niche workflows...              │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                          │
+│  ┌─ GRID DE 3 CARDS (responsive) ─────────────────┐   │
+│  │ ┌─ CARD 1 ┐  ┌─ CARD 2 ┐  ┌─ CARD 3 ┐       │   │
+│  │ └─────────┘  └─────────┘  └─────────┘       │   │
+│  └─────────────────────────────────────────────────┘   │
+│                                                          │
+└──────────────────────────────────────────────────────────┘
+```
+
+### 3. ESTILO Y COLORES
+
+**Color de Fondo Principal:**
+- Color: `#0f172a` (Azul marino oscuro profundo)
+- Alternativa con gradiente: `linear-gradient(135deg, #0f172a 0%, #1a2844 100%)`
+- Este color debe transmitir profesionalismo, confianza y tecnología avanzada
+- NO usar: Verde neon, colores demasiado vibrantes o que choquen visualmente
+
+**Texto:**
+- Títulos: `#ffffff` (blanco puro)
+- Descripciones: `rgba(255, 255, 255, 0.85)` (blanco con 85% de opacidad)
+- Subtítulos/badges: `rgba(255, 255, 255, 0.75)` (blanco con 75% de opacidad)
+
+**Badge Header:**
+- Fondo: `rgba(255, 255, 255, 0.12)` (fondo semi-transparente sutil)
+- Border: `1px solid rgba(255, 255, 255, 0.2)`
+- Padding: 0.6rem 1.2rem
+- Border-radius: 20px
+- Font-size: 0.75rem (pequeño)
+- Letter-spacing: 1.5px
+- Texto: mayúsculas, peso 600
+
+### 4. CARDS DE CUSTOMIZATION
+
+**Cada card debe tener:**
+
+a) **Ícono/Símbolo (NO emojis grandes)**
+   - Use símbolos Unicode profesionales o iconos SVG pequeños
+   - Símbolos sugeridos:
+     * Material Procurement: `⚙` (engranaje) o símbolo de caja
+     * Subcontractor Vetting: `✓` (checkmark) o documento con check
+     * Permit Tracking: `⌕` (búsqueda) o lupa
+   - Tamaño: 60px x 60px
+   - Fondo: `rgba(0, 217, 163, 0.15)` (fondo teal muy sutilizado)
+   - Border-radius: 12px
+   - Color ícono: `#00d9a3` (teal de Sourcy)
+   - Margin-bottom: 1.5rem
+
+b) **Título**
+   - Font-size: 1.3rem
+   - Font-weight: 600
+   - Color: blanco (#ffffff)
+   - Margin-bottom: 1rem
+
+c) **Descripción**
+   - Font-size: 0.95rem
+   - Line-height: 1.6
+   - Color: `rgba(255, 255, 255, 0.8)` (blanco con 80% opacidad)
+   - Margin-bottom: 0
+
+**Estilo del card contenedor:**
+- Padding: 2.5rem 2rem
+- Fondo: `rgba(255, 255, 255, 0.08)` (vidrio transparente)
+- Border: `1px solid rgba(255, 255, 255, 0.15)`
+- Border-radius: 14px
+- Backdrop-filter: `blur(10px)` (efecto glassmorphism - vidrio esmerilado)
+- Display: flex con flex-direction column
+- Min-height: 280px
+- Text-align: center
+- Transición: `all 0.3s ease`
+
+**Hover State (importante para interactividad):**
+- Background: `rgba(255, 255, 255, 0.12)` (más visible)
+- Border-color: `rgba(0, 217, 163, 0.4)` (borde teal más visible)
+- Transform: `translateY(-5px)` (levanta el card 5px)
+- Box-shadow: `0 10px 30px rgba(0, 0, 0, 0.3)` (sombra más profunda)
+
+### 5. GRID RESPONSIVO
+
+**Desktop (> 1024px):**
+- Grid de 3 columnas
+- Gap: 2rem
+
+**Tablet (768px - 1024px):**
+- Grid de 2 columnas
+- Gap: 2rem
+
+**Mobile (< 768px):**
+- Grid de 1 columna
+- Gap: 2rem
+
+### 6. PADDINGS Y MÁRGENES GENERALES
+
+- Padding de la sección: `5rem 3rem`
+- Máximo ancho del grid: 1200px
+- Centrado con: `margin-left: auto` y `margin-right: auto`
+- Margin-bottom de badges: 2rem
+- Margin-bottom de título: 1rem
+- Margin-top del grid: 3rem
+
+---
+
+## CONTENIDO ESPECÍFICO
+
+### Badge
+Texto: "BEYOND STANDARD AGENTS"
+
+### Título H2
+"Build Custom Agents for Your Unique Workflow"
+
+### Descripción/Párrafo
+"Pre-built agents are just the start. Tell us what you need, and we'll build it. From complex integrations to niche workflows, nothing is off limits."
+
+### Card 1 - Material Procurement
+- **Símbolo:** ⚙ (engranaje)
+- **Título:** Material Procurement
+- **Descripción:** Agent compares prices from 5+ suppliers and creates POs automatically. Integrated with your vendor database.
+
+### Card 2 - Subcontractor Vetting
+- **Símbolo:** ✓ (checkmark)
+- **Título:** Subcontractor Vetting
+- **Descripción:** Collects insurance, licenses, and references automatically. Validates compliance before assignment.
+
+### Card 3 - Permit Tracking
+- **Símbolo:** ⌕ (búsqueda)
+- **Título:** Permit Tracking
+- **Descripción:** Monitors city portals for permit status updates. Alerts you instantly when action is needed.
+
+---
+
+## CSS REQUERIDO
+
+```css
+.customization {
+    padding: 5rem 3rem;
+    background: linear-gradient(135deg, #0f172a 0%, #1a2844 100%);
+    color: white;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.badge-header {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.12);
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 0.75rem;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: uppercase;
+}
+
+.customization h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.customization > p {
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+    opacity: 0.85;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.custom-examples {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.custom-example {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    padding: 2.5rem 2rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    min-height: 280px;
+    justify-content: flex-start;
+}
+
+.custom-example:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(0, 217, 163, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.custom-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    background: rgba(0, 217, 163, 0.15);
+    border-radius: 12px;
+    font-size: 1.8rem;
+    color: #00d9a3;
+}
+
+.custom-example h4 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.custom-example p {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .custom-examples {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .custom-examples {
+        grid-template-columns: 1fr;
+    }
+    
+    .customization {
+        padding: 3rem 1.5rem;
+    }
+    
+    .customization h2 {
+        font-size: 1.8rem;
+    }
+    
+    .customization > p {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .customization h2 {
+        font-size: 1.5rem;
+    }
+    
+    .custom-example {
+        min-height: auto;
+    }
+}
+```
+
+---
+
+## HTML REQUERIDO
+
+```html
+<section class="customization">
+    <div class="badge-header">Beyond Standard Agents</div>
+    
+    <h2>Build Custom Agents for Your Unique Workflow</h2>
+    
+    <p>Pre-built agents are just the start. Tell us what you need, and we'll build it. From complex integrations to niche workflows, nothing is off limits.</p>
+    
+    <div class="custom-examples">
+        <div class="custom-example">
+            <div class="custom-icon">⚙</div>
+            <h4>Material Procurement</h4>
+            <p>Agent compares prices from 5+ suppliers and creates POs automatically. Integrated with your vendor database.</p>
+        </div>
+
+        <div class="custom-example">
+            <div class="custom-icon">✓</div>
+            <h4>Subcontractor Vetting</h4>
+            <p>Collects insurance, licenses, and references automatically. Validates compliance before assignment.</p>
+        </div>
+
+        <div class="custom-example">
+            <div class="custom-icon">⌕</div>
+            <h4>Permit Tracking</h4>
+            <p>Monitors city portals for permit status updates. Alerts you instantly when action is needed.</p>
+        </div>
+    </div>
+</section>
+```
+
+---
+
+## NOTAS FINALES
+
+1. **Colores críticos:**
+   - Fondo oscuro: #0f172a (NUNCA verde neon)
+   - Acentos teal: #00d9a3 (marca de Sourcy)
+   - Texto principal: #ffffff
+
+2. **Sin emojis grandes:** Usar símbolos Unicode o pequeños iconos, NO emojis de 2-3rem
+
+3. **Glassmorphism:** El efecto backdrop-filter: blur(10px) es importante para el look moderno
+
+4. **Hover interactivo:** Las tarjetas deben levantarse y mostrar más contraste al pasar el mouse
+
+5. **Responsive first:** Funciona perfectamente en mobile, tablet y desktop
+
+6. **Integración:** Asegurar que los espacios y paddings sean consistentes con el resto de la página

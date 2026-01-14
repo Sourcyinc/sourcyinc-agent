@@ -1,0 +1,200 @@
+## CONTEXT
+This prompt applies ONLY to the **“Automations” page**, which lives **between “Agents” and “Pricing”** in the main navigation.
+The page already exists. Do NOT create a new page.
+Match the **same visual style, layout depth, interactivity, and motion feel** used on the **Agents page**.
+
+The goal is NOT to sell tools.
+The goal is to help non-technical business owners instantly *see themselves* in the problems being solved.
+
+This page must feel:
+• Visual-first
+• Easy to understand (even for a 10-year-old)
+• Relieving, not technical
+• Focused on removing friction and mental load
+
+Avoid heavy paragraphs.
+Prefer **icons, cards, flows, visual blocks, and light micro-animations**.
+
+Do NOT include a “Try Me” button on this page.
+
+---
+
+## PAGE PURPOSE
+Help visitors understand:
+• What automations are
+• Why they matter
+• How they quietly remove work
+• How they work alongside AI agents
+• That automations are built intentionally by humans, not just AI
+
+The visitor should leave thinking:
+“Wow… this would remove a lot of stress from my business.”
+
+---
+
+## HERO SECTION (VISUAL FIRST)
+
+**Headline**
+Automations that quietly run your business in the background
+
+**Subheadline**
+We build smart systems that move information, trigger actions, and keep things running without you having to think about them.
+
+**Supporting line (lighter text)**
+If something happens the same way every time, it should not require your attention.
+
+Use subtle motion:
+• Slow background gradient
+• Floating system icons
+• Light pulse animations
+
+---
+
+## SECTION: WHAT AUTOMATIONS REALLY ARE (VISUAL EXPLANATION)
+
+Title:
+What do we mean by automations?
+
+Instead of a long explanation, use a **visual comparison block**:
+
+### Left side (Icon-based)
+Manual work looks like:
+• People checking inboxes
+• Someone remembering to follow up
+• Tasks being chased
+• Things falling through the cracks
+
+### Right side (Icon-based)
+Automations look like:
+• Systems responding instantly
+• Information moving on its own
+• Follow ups happening automatically
+• Nothing getting forgotten
+
+Short reinforcing line:
+Automations do not replace your team.
+They support your team by handling the boring, repetitive, easy-to-forget work.
+
+---
+
+## SECTION: REAL EXAMPLES PEOPLE RECOGNIZE (CARD GRID)
+
+Title:
+Examples you can instantly relate to
+
+Use **animated cards or icon tiles**, each with a simple trigger → result flow.
+
+Examples to include:
+
+• Form submitted → personalized email is sent → team gets notified  
+• New lead enters CRM → follow up messages go out automatically  
+• Proposal sent → reminders follow up if there is no response  
+• Payment overdue → polite reminders are sent without awkward conversations  
+• Call booked → confirmations and internal notifications happen instantly  
+
+Below the grid:
+The key idea:
+Things move forward without someone needing to push every button manually.
+
+---
+
+## SECTION: WHY THIS MATTERS (BENEFITS AS VISUAL SIGNALS)
+
+Title:
+Why this matters for your business
+
+Use **icon rows or cards**, minimal text:
+
+• Fewer things fall through the cracks  
+• Faster response times without extra staff  
+• Consistent execution every time  
+• Less stress for your team  
+• More time focused on decisions and growth  
+
+Short emphasis line:
+Automation is not about doing more work.
+It is about removing unnecessary work.
+
+---
+
+## SECTION: HOW WE BUILD AUTOMATIONS (PROCESS VISUAL)
+
+Title:
+How we build automations
+
+Avoid technical diagrams.
+Use a **step-based visual flow**:
+
+Step 1:
+Understand how your business currently works
+
+Step 2:
+Identify where things slow down or get forgotten
+
+Step 3:
+Decide what should happen automatically versus manually
+
+Step 4:
+Design systems that fit your workflows, tools, and goals
+
+Closing line:
+Some automations are simple.
+Some are complex.
+All of them are built intentionally.
+
+---
+
+## SECTION: AUTOMATIONS AND AI AGENTS (CLEAR DIFFERENTIATION)
+
+Title:
+Automations and AI agents work together
+
+Use a **two-card comparison**, visual-first:
+
+### Automations
+• Handle structured, rule-based tasks  
+• Move information reliably between systems  
+• Follow predefined workflows  
+
+### AI Agents
+• Handle conversations and decisions  
+• Adapt to context  
+• Respond intelligently  
+
+Below both cards:
+Sometimes they work independently.
+Sometimes they work together.
+
+Final reinforcing statement:
+The goal is not technology for the sake of technology.
+The goal is smoother operations and less friction across your business.
+
+---
+
+## FINAL VISUAL CTA (NO TRY ME)
+
+Visual container with subtle glow.
+
+Headline:
+Ready to remove friction from your operations?
+
+Subtext:
+See how smart systems can quietly support your business every day.
+
+Button:
+Explore Automations
+
+Supporting micro-text:
+Talk to us about your workflows
+
+---
+
+## STYLE GUIDELINES
+• Match the **Agents page** depth and interactivity
+• Prioritize visuals over text
+• Use icons, cards, motion, and spacing to communicate
+• Keep language simple, human, and reassuring
+• Avoid developer language
+• Avoid over-explaining
+
+This page should feel like clarity, not complexity.

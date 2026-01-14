@@ -1,0 +1,114 @@
+You are working on the **Pricing > Compare Features** section of the Sourcy website.
+
+Your goal is to improve **visual hierarchy, clarity, and decision guidance** without adding marketing hype or aggressive sales language.
+
+---
+
+## VISUAL PRIORITY (MANDATORY)
+
+- The **Bundle** column must be visually emphasized as the most complete option.
+- Move any visual highlight (background, border, glow, or emphasis) from other plans to the **Bundle**.
+- The emphasis must be **subtle and elegant**, not aggressive.
+- Text Agent and Voice Agent columns must remain neutral and readable.
+
+---
+
+## MICRO-LABEL ABOVE BUNDLE (REQUIRED)
+
+Add a small, elegant label above the Bundle column:
+
+**“Designed for real operations”**
+
+- The label must be understated.
+- No bright colors, no marketing badges, no “Most Popular” language.
+
+---
+
+## GUIDANCE LINE ABOVE TABLE (REQUIRED)
+
+Directly below the “Compare Features” title, add the following sentence:
+
+**“Different tools solve different problems. Most businesses end up needing both.”**
+
+---
+
+## FEATURE ROW STRUCTURE RULES
+
+### Shared Features (CRITICAL)
+
+- For features that apply equally to two or all three plans (e.g. Availability):
+  - Display the feature once in the **Feature** column.
+  - Use checkmarks (✔) in all applicable columns.
+  - Do NOT repeat descriptive text in each column.
+
+---
+
+### Channel-Specific Features
+
+- Only include descriptive text where behavior differs by agent type.
+- Keep language **business-oriented and understandable**.
+- Use technical terms only when they are obvious (e.g. Outbound Dialing).
+
+---
+
+## VOICE CAPABILITIES ROW (IMPORTANT)
+
+- For **Text Agent**, leave the cell **blank**.
+- Do NOT display “No” or “Not supported”.
+- This avoids unnecessary cognitive friction for the reader.
+
+---
+
+## CONVERSATIONAL CONTEXT CLARIFICATION
+
+- Context is **session-based only**.
+- Applies only within:
+  - The active chat (Text Agent)
+  - The active call (Voice Agent)
+- Context is **not stored or reused across conversations**.
+- Do NOT imply long-term memory or learning.
+
+---
+
+## CRM INTEGRATION CLARIFICATION
+
+- Add a tooltip icon (ⓘ) next to **CRM Two-Way Sync**.
+- Tooltip copy must state:
+
+> *CRM integration depends on the type of CRM used and must be reviewed and validated during setup.*
+
+- Do NOT imply universal or guaranteed compatibility.
+
+---
+
+## REMOVED FEATURE (MANDATORY)
+
+- Completely remove **Call Recording & Transcripts** from the comparison table.
+- Do NOT reference this feature anywhere in the Pricing comparison.
+
+---
+
+## SETUP TIME RULES
+
+- Display setup time as:
+  - **Text Agent:** 5–10 Business Days
+  - **Voice Agent:** 5–10 Business Days
+  - **Bundle:** Varies
+
+- Include a tooltip icon (ⓘ) next to “Setup Time” with the following explanation:
+
+> *Time from contract to live deployment.  
+> Includes agent configuration, knowledge base setup, CRM connections, and testing to ensure reliable performance.*
+
+---
+
+## STRICT CONSTRAINTS (NON-NEGOTIABLE)
+
+- Do NOT add CTAs in this section.
+- Do NOT add pricing explanations.
+- Do NOT add marketing promises or guarantees.
+- Do NOT introduce new features.
+- Do NOT remove any other existing features.
+- Do NOT change terminology inconsistently.
+
+The purpose of this section is **clarity and informed decision-making**, not closing the sale.

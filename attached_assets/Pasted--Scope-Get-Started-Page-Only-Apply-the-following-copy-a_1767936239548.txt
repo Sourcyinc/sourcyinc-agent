@@ -1,0 +1,116 @@
+## Scope: Get Started Page Only
+
+Apply the following copy and UI text updates **exclusively** to the existing **“Get Started”** page.  
+Do **not** create new pages, routes, or flows.  
+Do **not** modify other sections of the website.
+
+This page is used as a lead-entry and guided consultation experience.
+
+---
+
+## Page Intent
+
+This page should feel like:
+- A guided conversation, not a sales funnel
+- A serious intake, not a generic demo
+- A place to explain real business challenges
+- A human-reviewed entry point with clear criteria
+
+Avoid sales language.  
+Avoid plan or pricing references.  
+Avoid terms like “buy”, “purchase”, or “package”.
+
+---
+
+## Hero Headline
+
+**See how AI agents can actually help your business run smoother**
+
+---
+
+## Subheadline
+
+**Let’s remove the busywork that slows your business down so you can focus on what actually moves the needle.**
+
+---
+
+## Central Information Box (Replace existing content)
+
+Use a visually integrated container that blends with the page background while still drawing attention.
+
+### Copy (keep this exact order):
+
+**We’ll ask a few focused questions to understand how your business works today**
+
+**You’ll have space to explain your challenges and how you think AI could help**
+
+**Our team reviews every request and reaches out only when there’s a real fit**
+
+Tone must feel:
+- Human
+- Intentional
+- Selective
+- Trust-building
+
+---
+
+## Agent Identity Section
+
+Keep the agent identity as:
+
+**Mr. Sourcy**
+
+This agent represents:
+- A guided intake experience
+- A bridge between AI and a real team
+- Not a generic chatbot
+
+---
+
+## Primary CTA Button
+
+Update the button label to:
+
+**Start the conversation**
+
+The button should feel like:
+- Beginning a dialogue
+- Not starting a sales process
+- Not committing to anything
+
+---
+
+## Microcopy Below CTA
+
+**No commitment. Just clarity.**
+
+Use a period, not separators.
+
+---
+
+## Footer Text (Bottom of Page)
+
+Keep:
+
+**Powered by Sourcy**
+
+---
+
+## UX Notes
+
+- This page is used for lead qualification and consultation entry
+- The agent will collect basic information and understand the user’s needs
+- If the request is relevant, the lead may be contacted by the team later
+- Do not explicitly describe scheduling, qualification logic, or internal workflows
+- The experience should feel calm, intentional, and worth the user’s time
+
+---
+
+## Visual References
+
+I will provide **three reference images**, in this order:
+1. Overall background and page mood
+2. Logo treatment reference
+3. Typography and contrast reference
+
+Use them strictly as visual guidance.

@@ -1,0 +1,146 @@
+📍 PAGE CONTEXT  
+This prompt applies to a **new top-level navigation item called “Automations”**, added to the header alongside:
+- Home
+- Agents
+- Pricing
+- Get Started
+
+Place the new “Automations” navigation item in the header **between “Agents” and “Pricing”**, maintaining the same style and spacing as the existing menu items.
+
+The “Automations” page should use the **same background, layout style, and visual language as the “Agents” page** to keep the experience cohesive.
+
+🎯 PAGE GOAL  
+Help visitors clearly understand:
+- What business automations are
+- Why they matter
+- How they remove friction from daily operations
+- That automations are built intentionally by our team, not just “magic tools”
+
+This page should feel **educational, practical, and reassuring**, not technical or overwhelming.
+
+---
+
+## HERO SECTION (TOP OF PAGE)
+
+### Headline  
+**Automations that quietly run your business in the background**
+
+### Subheadline  
+We design smart automations that connect your tools, move information automatically, and eliminate repetitive manual work so your business runs smoother without constant oversight.
+
+### Supporting Line  
+If a task happens the same way every time, it should not require your time.
+
+---
+
+## WHAT AUTOMATIONS ACTUALLY MEAN (EXPLAIN IT SIMPLY)
+
+### Section Title  
+**What do we mean by automations?**
+
+### Body Copy  
+Automations are systems that take care of routine actions across your business without you having to think about them.
+
+They do not replace your team.  
+They support your team by handling the boring, repetitive, and easy-to-forget tasks that slow everything down.
+
+Instead of people chasing tasks, systems move things forward automatically.
+
+---
+
+## REAL-WORLD EXAMPLES (VERY PRACTICAL)
+
+### Section Title  
+**Examples you can relate to**
+
+Use short, easy-to-visualize examples written in plain language:
+
+- When someone fills out a form on your website, an automation can instantly send them a personalized email and notify your team.
+- When a new lead enters your CRM, follow-up messages can be sent automatically based on who they are and what they requested.
+- When a proposal is sent, reminders can go out automatically if there is no response.
+- When a payment is overdue, the system can send polite reminders without your team getting involved.
+- When a client books a call, confirmations, reminders, and internal notifications all happen automatically.
+
+The key idea:  
+Things move forward without someone having to push every button manually.
+
+---
+
+## WHY BUSINESSES USE AUTOMATIONS (VALUE-FOCUSED)
+
+### Section Title  
+**Why this matters for your business**
+
+### Bullet Points  
+- Fewer things fall through the cracks  
+- Faster response times without extra staff  
+- Consistent execution every time  
+- Less stress for your team  
+- More time focused on decisions and growth  
+
+Automation is not about doing more work.  
+It is about removing unnecessary work.
+
+---
+
+## HOW WE APPROACH AUTOMATIONS (IMPORTANT CLARITY)
+
+### Section Title  
+**How we build automations**
+
+### Body Copy  
+We do not install random tools and hope they work.
+
+We take the time to understand:
+- How your business currently operates
+- Where things slow down
+- What information needs to move between systems
+- What should happen automatically versus manually
+
+Then we design automations that fit your workflows, your tools, and your goals.
+
+Some automations are simple.  
+Some are complex.  
+All of them are built intentionally.
+
+---
+
+## CONNECTION TO AI AGENTS (WITHOUT CONFUSION)
+
+### Section Title  
+**Automations and AI agents work together**
+
+### Body Copy  
+Automations handle structured, rule-based tasks.  
+AI agents handle conversations, decisions, and dynamic interactions.
+
+Sometimes they work independently.  
+Sometimes they work together.
+
+The goal is not technology for the sake of technology.  
+The goal is smoother operations and less friction across your business.
+
+---
+
+## CTA SECTION (SOFT, CONSULTATIVE)
+
+### Primary CTA Button  
+**Explore Automations**
+
+### Secondary Supporting Line  
+See how smart systems can remove friction from your daily operations.
+
+(Optional secondary CTA if you want later):  
+**Talk to us about your workflows**
+
+---
+
+⚠️ TONE & STYLE RULES  
+- Avoid technical jargon  
+- Avoid buzzwords  
+- No dashes “-” in copy  
+- Write as if explaining to a smart 10-year-old business owner  
+- Focus on clarity, relief, and outcomes  
+
+The reader should finish the page thinking:  
+“Oh… this would actually make my life easier.”

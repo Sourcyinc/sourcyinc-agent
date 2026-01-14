@@ -1,0 +1,107 @@
+You are working on the **Text Agents selection modal** inside the **Pricing** page.
+
+This task is focused ONLY on improving **price clarity**.
+Do NOT change layout structure, agent list, selection logic, or Stripe flow.
+
+---
+
+## PRICING STRUCTURE (MANDATORY)
+
+Each Text Agent must display **two prices**:
+
+1) **Monthly partnership fee** (primary, visually dominant)
+2) **One-time setup fee** (secondary, clearly labeled)
+
+The setup fee must be visually smaller and clearly marked as **one-time**.
+
+---
+
+## PRICE VALUES (USE EXACTLY THESE)
+
+- Lead Qualification  
+  Setup: **$1,500**  
+  Monthly: **$900 / month**
+
+- Proposal Follow-Up  
+  Setup: **$1,500**  
+  Monthly: **$900 / month**
+
+- Appointment Scheduling  
+  Setup: **$1,200**  
+  Monthly: **$700 / month**
+
+- Customer Service (Text)  
+  Setup: **$1,800**  
+  Monthly: **$1,100 / month**
+
+- Invoice Generator  
+  Setup: **$1,000**  
+  Monthly: **$600 / month**
+
+- Payment Reminders  
+  Setup: **$1,000**  
+  Monthly: **$600 / month**
+
+- CRM Analysis  
+  Setup: **$2,000**  
+  Monthly: **$1,200 / month**
+
+- Portfolio Analysis  
+  Setup: **$2,000**  
+  Monthly: **$1,200 / month**
+
+---
+
+## TOTAL CALCULATION DISPLAY (MANDATORY)
+
+At the bottom of the modal, show two separate totals:
+
+- **One-time setup total**
+- **Monthly total**
+
+Example format:
+- Setup (one-time): $X,XXX  
+- Monthly: $X,XXX / month
+
+Totals must update dynamically based on selected agents and quantities.
+
+---
+
+## CONSTRAINTS (NON-NEGOTIABLE)
+
+- Do NOT add explanations or long descriptions.
+- Do NOT add ROI comparisons or human cost references.
+- Do NOT change the “Buy” button label or behavior.
+- Do NOT change Stripe placeholder logic.
+- Do NOT change agent selection or quantity behavior.
+
+## STRIPE CHECKOUT BEHAVIOR (MANDATORY)
+
+When the user clicks **“Buy”**:
+
+- Initiate **Stripe Checkout** immediately.
+- Pass the selected Text Agents, quantities, setup total, and monthly total to Stripe.
+- Use Stripe Checkout (hosted) for payment handling.
+
+### Payment logic:
+- **One-time setup total** must be charged as a one-time payment.
+- **Monthly total** must be charged as a recurring subscription.
+
+### Data to send to Stripe must include:
+- Agent name
+- Quantity per agent
+- One-time setup amount
+- Monthly recurring amount
+- Currency: USD
+
+Example structure (conceptual, not UI copy):
+- Setup (one-time): charged immediately
+- Monthly: subscription starting after checkout
+
+### Constraints:
+- Do NOT show Stripe UI until the user clicks “Buy”.
+- Do NOT add extra confirmation steps before Stripe.
+- Do NOT modify pricing calculations.
+- Do NOT change the “Buy” button label.
+
+Stripe handles the payment flow; Sourcy handles the configuration after checkout.

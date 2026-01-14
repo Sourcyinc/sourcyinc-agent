@@ -1,0 +1,61 @@
+Necesito que ajustes los colores de las cards en las secciones "Why Sourcy?" y "The Core Pillars of Automation" con una paleta profesional de AI.
+
+## SECCIÓN "WHY SOURCY?" - Cards de estadísticas
+
+**Card 1 (Multilingual):** Púrpura
+background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(192, 132, 252, 0.35);
+
+**Card 2 (< 2 min - Response Time):** Cyan
+background: linear-gradient(to bottom right, rgba(22, 78, 99, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(34, 211, 238, 0.35);
+
+**Card 3 (+30% - ROI Increase):** Emerald
+background: linear-gradient(to bottom right, rgba(6, 78, 59, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(52, 211, 153, 0.35);
+
+**Card 4 (70% - Efficiency Boost):** Azul
+background: linear-gradient(to bottom right, rgba(30, 58, 138, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(96, 165, 250, 0.35);
+
+
+## SECCIÓN "THE CORE PILLARS OF AUTOMATION" - Cards de features
+
+**Card 1 (Voice Automation):** Púrpura
+background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(192, 132, 252, 0.35);
+
+**Card 2 (Intelligent Text):** Cyan
+background: linear-gradient(to bottom right, rgba(22, 78, 99, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(34, 211, 238, 0.35);
+
+**Card 3 (Data Driven):** Emerald
+background: linear-gradient(to bottom right, rgba(6, 78, 59, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(52, 211, 153, 0.35);
+
+
+## COLORES DE ACENTO PARA TEXTOS (subtítulos e íconos)
+
+**Card Púrpura:** color: #c084fc (purple-400)
+**Card Cyan:** color: #22d3ee (cyan-400)
+**Card Emerald:** color: #34d399 (emerald-400)
+**Card Azul:** color: #60a5fa (blue-400)
+
+
+## RESUMEN DE LA PALETA
+
+| Card | Fondo | Borde | Acento |
+|------|-------|-------|--------|
+| 1 | Púrpura | #c084fc | purple-400 |
+| 2 | Cyan | #22d3ee | cyan-400 |
+| 3 | Emerald | #34d399 | emerald-400 |
+| 4 | Azul | #60a5fa | blue-400 |
+
+
+## IMPORTANTE
+- NO cambiar textos ni contenido
+- NO cambiar íconos
+- NO cambiar estructura ni layout
+- Los fondos tienen 45% de opacidad para ser sutiles
+- Los bordes tienen 35% de opacidad para no ser agresivos
+- Esta paleta es profesional y estándar en la industria AI

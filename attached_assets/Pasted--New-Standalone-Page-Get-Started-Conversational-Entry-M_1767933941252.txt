@@ -1,0 +1,128 @@
+## New Standalone Page – “Get Started” Conversational Entry (Mr. Sourcy)
+
+I will attach **3 reference images in this exact order** to guide the visual and UX implementation:
+1. Background / atmosphere reference  
+2. Messaging card & structure reference  
+3. Floating chat interaction reference  
+
+Please use all three together.
+
+---
+
+### Objective
+Create a **standalone conversational page** that serves as the main entry point to start interacting with Sourcy’s AI system.  
+This is **not a marketing page**, not pricing, and not a quote form.  
+It should feel human, calm, futuristic, and focused on helping users understand how AI agents can reduce friction in their business.
+
+---
+
+### Global Rules
+- ❌ NO header
+- ❌ NO footer
+- ❌ NO navigation links
+- ❌ NO way out except one
+- ✅ The **only exit** is clicking the **large Sourcy logo**, which must redirect back to the Home page
+
+This page must feel intentionally focused and distraction-free.
+
+---
+
+### Branding & Identity
+- Agent name: **Mr. Sourcy**
+- Footer text under the main CTA area:  
+  **“Powered by Sourcy”**
+- Use the **Sourcy logo** (same one used in the main header across the site)
+- The logo should be **clickable** and return users to Home
+
+---
+
+### Background
+- Use the **background style from Image #1**
+- Soft gradient, professional, clean, modern
+- Must visually align with the Home page aesthetic
+
+---
+
+### Main Headline (Center of the page)
+Do **NOT** use:
+- “Get Your Personalized Quote”
+- Sales-heavy or pricing language
+
+Instead, use a human, Jeremy Miner–style positioning.  
+Example tone (you can refine copy, but keep the intent):
+
+> **“See how AI agents can actually help your business run smoother.”**
+
+or
+
+> **“Let’s remove the busywork that slows your business down.”**
+
+This headline should communicate clarity, relief, and usefulness — not pressure.
+
+---
+
+### Supporting Card (Like Image #2)
+Under the headline, add a **small informational card** that explains what happens next.
+
+Structure similar to Image #2, but with this meaning:
+
+- Answer a few simple questions  
+- Takes less than 2 minutes  
+- We’ll review your needs and get in touch with you  
+
+⚠️ Important:
+- Do **NOT** say “our team follows up with your best options”
+- Do **NOT** imply a call
+- Use wording that implies **we will reach out**, not necessarily a call
+
+---
+
+### Primary CTA
+Main button text:
+**“Start Conversation”**
+
+Subtext below the button:
+> *No commitment · Just clarity*
+
+---
+
+### Chat Behavior (Image #3 Reference)
+When the user clicks **“Start Conversation”**:
+
+- Open a **floating chat window**
+- The chat UI should visually match Image #3
+- The agent must be clearly identified as **Mr. Sourcy**
+
+#### Initial Message Example (tone reference):
+> Hi, I’m Mr. Sourcy.  
+> I help businesses reduce friction using AI agents — across text, voice, workflows, and custom systems.  
+> Tell me a bit about what you’re trying to improve.
+
+Tone:
+- Human
+- Calm
+- Professional
+- Helpful
+- Not salesy
+
+---
+
+### Navigation Constraint
+There must be **no visible navigation** on this page.
+The **only way to leave**:
+- Clicking the **Sourcy logo**, which returns the user to Home
+
+This page should feel like a focused, intentional entry into a conversation — not a website.
+
+---
+
+### Summary
+This page is:
+- A conversational entry point
+- A trust-building experience
+- A bridge between curiosity and real solutions
+
+Please follow the three reference images closely to match:
+- Atmosphere
+- Layout
+- Interaction behavior

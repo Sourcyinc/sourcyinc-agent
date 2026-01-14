@@ -1,0 +1,124 @@
+### Page Scope — Important
+Apply all the instructions below **only** to the existing **“Get Started” page**.  
+This page already exists. Do NOT duplicate it, rename it, or reuse this layout anywhere else.
+
+## Final UI & Copy Adjustments — Mr. Sourcy Page (Existing Page)
+
+### Context
+This page already exists and is live.  
+The goal is to **refine visuals, copy, and brand cohesion**, not to create a new page.
+
+I will provide **3 reference images in this exact order** to guide styling and layout decisions.
+
+---
+
+## 1. Brand & Logo Adjustments
+
+- Use the **logo structure from Image #2** (icon + wordmark layout).
+- Keep the **"Sourcy" text color and weight exactly as shown in Image #3**:
+  - More robust
+  - Higher contrast
+  - Matches the rest of the site typography
+- The logo should be **clickable**:
+  - Clicking the logo returns the user to the **Home page**
+- No header or footer should exist on this page.
+  - The logo is the **only exit**.
+
+---
+
+## 2. Background
+
+- Apply the **same background treatment shown in Image #4**:
+  - Dark gradient
+  - Soft lighting
+  - No harsh contrast
+- This background must blend seamlessly with the rest of the Sourcy site.
+
+---
+
+## 3. Headline (Keep Structure, Refine Tone)
+
+Current structure is correct.  
+Keep it, but ensure tone feels **human, calm, and confident**.
+
+Recommended final copy:
+
+**Headline**
+> See how AI agents can actually help your business  
+> **run smoother**
+
+**Subheadline**
+> Let’s remove the busywork that slows your business down — so your team can focus on what actually matters.
+
+---
+
+## 4. Information Card (Replace White Box)
+
+### Visual Change
+- The white box feels disconnected.
+- Replace it with:
+  - A **soft dark / translucent card**
+  - Slight blur or glassmorphism
+  - Uses Sourcy brand tones (teal / blue / dark gray)
+- Increase font size inside the card for readability.
+
+---
+
+### Copy Update (Very Important)
+
+Replace the first line **“Answer a few simple questions”**.
+
+New content inside the card:
+
+- **We’ll ask a few focused questions about your business**
+- **You’ll also be able to tell us how AI could actually help you**
+- **Our team reviews every request and follows up personally**
+
+This must clearly communicate:
+- The user is not wasting time
+- This is not a generic bot flow
+- A real human will follow up
+
+---
+
+## 5. Mr. Sourcy Section
+
+- Keep the name **Mr. Sourcy**
+- Keep the avatar and status indicator
+- Button text remains:
+  **Start Conversation →**
+- Supporting line stays:
+  > No commitment · Just clarity
+
+Under the page footer:
+> Powered by Sourcy
+
+---
+
+## 6. Interaction Behavior
+
+- Clicking **Start Conversation** opens a **floating chat window**, styled exactly like Image #3:
+  - Centered
+  - Clean
+  - Minimal UI
+- The experience should feel:
+  - Calm
+  - Premium
+  - Conversational (not salesy)
+
+---
+
+## 7. Summary of Intent
+
+This page should feel like:
+- A calm entry point
+- A guided conversation
+- A place to think, not to be sold
+
+Tone reference:
+- Human
+- Confident
+- Jeremy Miner–style clarity
+- “We help you think, then we help you act”
+
+No pressure. No noise. No distractions.

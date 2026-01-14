@@ -1,0 +1,139 @@
+You are working on the **Pricing** page of the Sourcy website.
+
+This task applies **ONLY** to the **Voice Agents** pricing card and its **“Get Started”** button behavior.
+Do NOT modify Text Agents flow or Full Stack Bundle flow.
+
+---
+
+# GOAL
+
+When a user clicks **“Get Started”** on **Voice Agents**, open a modal that allows them to:
+
+1) View the available **Voice Agents**
+2) Select one or multiple Voice Agents
+3) Optionally increase quantity per agent
+4) See pricing split into:
+   - One-time setup
+   - Monthly partnership fee
+5) See totals update in real time
+6) Proceed to **Stripe Checkout** by clicking “Buy”
+
+---
+
+# UI BEHAVIOR (MANDATORY)
+
+## Trigger
+- Clicking **Voice Agents → “Get Started”** opens a **modal**
+- Modal style must:
+  - Match the **Text Agents modal** exactly
+  - Use the same dark gradient, soft glow, and typography
+  - Dim or blur the background
+  - Include close icon + ESC support
+
+Do NOT use inline expansion or redirect to another page.
+
+---
+
+# MODAL CONTENT
+
+## Title
+**“Select Your Voice Agents”**
+
+## Subtitle (1 line max)
+**“Choose how your business handles real conversations.”**
+
+Keep it short and confident.
+
+---
+
+## VOICE AGENTS LIST (AVAILABLE)
+
+Display the following Voice Agents as selectable items:
+
+- Lead Qualification (Voice)
+- Appointment Scheduling (Voice)
+- Proposal Follow-Up (Voice)
+- Customer Service (Voice)
+
+Each item must show:
+- Agent name
+- Short outcome-based description
+- Monthly price (primary)
+- One-time setup (secondary)
+- Quantity selector (default = 1)
+
+---
+
+# PRICING (USE EXACT VALUES)
+
+### Lead Qualification – Voice
+- Setup (one-time): **$1,500**
+- Monthly: **$900 / month**
+
+### Appointment Scheduling – Voice
+- Setup (one-time): **$1,200**
+- Monthly: **$700 / month**
+
+### Proposal Follow-Up – Voice
+- Setup (one-time): **$1,500**
+- Monthly: **$900 / month**
+
+### Customer Service – Voice
+- Setup (one-time): **$2,000**
+- Monthly: **$1,200 / month**
+
+---
+
+# SELECTION & QUANTITY RULES
+
+- Each agent has:
+  - Checkbox or toggle for selection
+  - Quantity controls (+ / –) visible only when selected
+- Minimum quantity = 1
+- Quantity multiplies both setup and monthly prices
+- Deselected agents do not affect totals
+
+---
+
+# TOTAL DISPLAY (MANDATORY)
+
+At the bottom of the modal, show **two totals**:
+
+- **Setup (one-time): $X,XXX**
+- **Monthly: $X,XXX / month**
+
+Totals must update dynamically based on selections and quantities.
+
+---
+
+# CHECKOUT FLOW (MANDATORY)
+
+## Buy Button
+- Label: **“Buy”**
+- On click:
+  - Initiate **Stripe Checkout**
+  - Charge:
+    - Setup total as one-time payment
+    - Monthly total as recurring subscription
+
+Stripe handles payment. Sourcy handles configuration after checkout.
+
+---
+
+# STRIPE PAYLOAD STRUCTURE (PREPARATION)
+
+```json
+{
+  "plan_type": "voice_agents",
+  "items": [
+    {
+      "agent_name": "Lead Qualification (Voice)",
+      "setup_price": 1500,
+      "monthly_price": 900,
+      "quantity": 1
+    }
+  ],
+  "setup_total": 1500,
+  "monthly_total": 900,
+  "currency": "USD"
+}

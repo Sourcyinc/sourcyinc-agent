@@ -1,0 +1,154 @@
+## Pricing – Compare Features
+
+The following comparison applies exclusively to the **Pricing** section and is intended to help you understand which type of agent best fits your business needs.
+
+---
+
+### Voice Capabilities
+- **Text Agent:** Not designed for voice conversations.
+- **Voice Agent:** Handles real phone conversations with natural tone and flow.
+- **Bundle:** Uses voice only when conversation truly matters.
+
+---
+
+### Conversational Context (Session-Based)
+- **Text Agent:** Maintains context only within the active chat session.
+- **Voice Agent:** Maintains context only within the active call.
+- **Bundle:** Context is preserved per interaction, based on the channel being used.
+
+> Context is not stored or reused across different conversations.
+
+---
+
+### SMS & Email Automation
+- **Text Agent:** Ideal for notifications, follow-ups, and quick responses.
+- **Voice Agent:** Limited — voice is not ideal for written communication.
+- **Bundle:** Uses text for consistency and voice for conversation.
+
+---
+
+### CRM Two-Way Sync
+- **Text Agent:** Reads and updates CRM data during text interactions.
+- **Voice Agent:** Accesses CRM data in real time while speaking with callers.
+- **Bundle:** Works across both channels depending on how the client engages.
+
+---
+
+### Client Data Usage
+- **Text Agent:** Uses CRM and data sources to answer written questions.
+- **Voice Agent:** Uses the same data to guide live conversations.
+- **Bundle:** Data is available regardless of the interaction type.
+
+---
+
+### Inbound Handling
+- **Text Agent:** Handles incoming messages and written requests.
+- **Voice Agent:** Answers inbound phone calls automatically.
+- **Bundle:** Covers inbound communication across voice and text.
+
+---
+
+### Outbound Engagement
+- **Text Agent:** Effective for reminders and written follow-ups.
+- **Voice Agent:** Designed for outbound qualification and conversations.
+- **Bundle:** Combines outreach with real-time conversation.
+
+---
+
+### Outbound Dialing
+- **Text Agent:** Not supported.
+- **Voice Agent:** Places outbound calls and handles live interactions.
+- **Bundle:** Uses outbound calls only when a conversation is required.
+
+---
+
+### Lead Qualification
+- **Text Agent:** Quick, structured qualification through messaging.
+- **Voice Agent:** Deeper qualification through live conversation.
+- **Bundle:** Matches qualification depth to the channel.
+
+---
+
+### Decision Handling
+- **Text Agent:** Executes decisions based on rules and inputs.
+- **Voice Agent:** Adjusts responses dynamically during calls.
+- **Bundle:** Decision flow adapts to interaction type.
+
+---
+
+### Human Interaction Style
+- **Text Agent:** Clear, concise, and professional.
+- **Voice Agent:** Natural, conversational, and human-like.
+- **Bundle:** Lets users interact the way they prefer.
+
+---
+
+### Use-Case Alignment
+- **Text Agent:** Best for quick answers and status checks.
+- **Voice Agent:** Best for discussions and clarifications.
+- **Bundle:** Covers both without forcing one channel.
+
+---
+
+### Availability
+- **Text Agent:** Available 24/7.
+- **Voice Agent:** Available 24/7.
+- **Bundle:** Always available without staffing limitations.
+
+---
+
+### Call Recording & Transcripts
+- **Text Agent:** Not applicable.
+- **Voice Agent:** Calls are recorded and transcribed.
+- **Bundle:** Full visibility into voice interactions.
+
+---
+
+### Knowledge Base (RAG)
+- **Text Agent:** Answers using your connected documents and data.
+- **Voice Agent:** Explains the same data during live calls.
+- **Bundle:** One data source, multiple interaction formats.
+
+---
+
+### Workflow Automation
+- **Text Agent:** Executes predefined workflows via text.
+- **Voice Agent:** Triggers workflows during calls.
+- **Bundle:** Automation adapts to the interaction.
+
+---
+
+### Experience Control
+- **Text Agent:** Predictable and consistent.
+- **Voice Agent:** Flexible and adaptive.
+- **Bundle:** Balanced control across channels.
+
+---
+
+### Scalability
+- **Text Agent:** Scales instantly with demand.
+- **Voice Agent:** Scales conversations without hiring.
+- **Bundle:** Scales operations, not headcount.
+
+---
+
+### Dedicated Development
+- **Text Agent:** Not included.
+- **Voice Agent:** Not included.
+- **Bundle:** Priority customization and development support.
+
+---
+
+### Best Fit
+- **Text Agent:** Businesses focused on speed and efficiency.
+- **Voice Agent:** Businesses that rely on conversation and trust.
+- **Bundle:** Businesses that need both.
+
+---
+
+### Setup Time ⓘ
+**All plans:** **5–10 Business Days**
+- **Bundle:** Varies
+
+> *Time from contract to live deployment.  
+> Includes agent configuration, knowledge base setup, CRM connections, and testing to ensure reliable performance.*

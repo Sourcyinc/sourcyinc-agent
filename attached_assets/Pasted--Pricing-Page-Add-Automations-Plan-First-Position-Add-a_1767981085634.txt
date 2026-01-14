@@ -1,0 +1,90 @@
+## Pricing Page — Add Automations Plan (First Position)
+
+Add a **new pricing card** called **“Automations”** and place it **as the first card**, before **Text Agents**.
+
+---
+
+### Pricing Card Content
+
+**Title:**  
+Automations
+
+**Starting Price:**  
+Starting from $800
+
+**Short Description:**  
+Smart automations that quietly run your workflows in the background.  
+We remove repetitive work so your team can focus on decisions, not tasks.
+
+---
+
+### CTA Button
+**Button Text:**  
+Talk to Our Team
+
+This button opens a modal (see below).
+
+---
+
+### Feature List
+- Workflow & process automation  
+- CRM automations and lifecycle updates  
+- Automated emails and internal notifications  
+- Proposal and payment follow ups  
+- Tool integrations and system syncing  
+- Built intentionally around your operations  
+
+---
+
+## Modal — Automations Contact Form
+
+When clicking **“Talk to Our Team”**, open a modal using the **same structure and design language** as the Full Stack Agent modal.
+
+---
+
+### Modal Header
+**Title:**  
+Build Smart Automations for Your Business
+
+**Subtitle:**  
+Tell us how your business works today, and we’ll explore how smart automations can remove friction and save your team time.
+
+---
+
+### Form Fields (Required)
+- First Name *
+- Last Name *
+- Email *
+- Phone Number *
+- Company Name *
+- Industry *
+
+---
+
+### Open Text Field (Required)
+**Label:**  
+What should we automate for you? *
+
+**Placeholder:**  
+Tell us about repetitive or manual tasks in your business. For example, follow ups, CRM updates, emails, approvals, or internal processes you want to run automatically.
+
+---
+
+### Footer & CTA
+**Primary Button:**  
+Send Request
+
+**Secondary Action:**  
+Cancel
+
+**Helper Text:**  
+Our team reviews every request and follows up when it makes sense.
+
+---
+
+### Behavioral & UX Notes
+- This Automations plan appears **before Text Agents**.
+- This does **not replace AI Agents**. It is a separate service offering.
+- Avoid technical jargon. Keep the language business friendly and clear.
+- Do not imply instant setup or immediate sales calls.
+- Visual style must match the existing Pricing page cards and modal system.

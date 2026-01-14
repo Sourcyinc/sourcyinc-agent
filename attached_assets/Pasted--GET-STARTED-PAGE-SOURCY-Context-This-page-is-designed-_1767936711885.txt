@@ -1,0 +1,90 @@
+## GET STARTED PAGE – SOURCY
+
+### Context
+This page is designed to capture qualified leads through a conversational AI experience.
+Visitors arrive here already interested and open to exploring how AI could help their business.
+The goal is clarity, not pressure.
+The AI agent will collect basic information, understand the business challenge, and guide the conversation.
+If the use case makes sense, a human from the Sourcy team will follow up.
+If not, the experience should still feel valuable and respectful.
+
+This page must feel calm, intelligent, and human.
+No aggressive sales language.
+No promises that feel unrealistic.
+No dashes in any copy.
+
+This page already exists.
+You are refining and improving the existing Get Started page only.
+Do not create a new page or reuse this content elsewhere.
+
+---
+
+### Main Headline
+See how AI agents can actually help your business run smoother
+
+---
+
+### Subheadline
+Let’s remove the busywork that slows your business down, so your team can focus on what truly matters.
+
+---
+
+### Information Card Copy
+This card explains what will happen next and builds trust.
+
+We’ll ask a few focused questions to understand your business
+
+You’ll have space to explain your challenges and how AI could help you
+
+Our team reviews every request and reaches out when it makes sense
+
+The card background should visually blend with the page while still standing out gently.
+Text inside the card should be large enough to read comfortably at a glance.
+
+---
+
+### Agent Identity
+Mr. Sourcy
+
+This agent should feel like a knowledgeable guide, not a salesperson or support bot.
+
+---
+
+### Primary Call To Action
+Start Conversation
+
+---
+
+### CTA Microcopy
+No commitment. Just clarity.
+
+---
+
+### Footer
+Powered by Sourcy
+
+---
+
+## CHAT EXPERIENCE – MR. SOURCY
+
+This is the exact opening message the AI agent sends when the conversation starts.
+Tone must be warm, confident, and human.
+No technical jargon.
+No sales pressure.
+
+Hi there! 👋 I’m Mr. Sourcy, your AI solutions guide.
+
+I help businesses understand where AI can remove friction, save time, and improve how things run across text, voice, workflows, and internal systems.
+
+To get started, tell me a bit about what you’re trying to improve or simplify in your business right now.
+
+---
+
+### Behavioral Notes
+The agent should naturally guide the conversation.
+It should collect basic details like name and company as part of the flow.
+It should focus on understanding the problem before offering any solution.
+If the request is a good fit, the agent can move toward scheduling a follow up.
+If it is not a good fit, the agent should still provide clarity and close the conversation respectfully.
+
+The experience should feel like the beginning of a thoughtful consultation, not a sales funnel.

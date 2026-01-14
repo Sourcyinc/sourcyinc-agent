@@ -1,0 +1,66 @@
+Necesito que hagas los siguientes cambios en la sección "Build Custom Agents" y "AI Built for the Enterprise" usando la misma paleta de colores (Púrpura, Cyan, Emerald, Azul).
+
+## 1. TÍTULO "Build Custom Agents for Your Unique Workflow"
+
+Cambiar el color del texto a un gradiente cyan a teal (igual que "Intelligent Agents" en el hero):
+
+background: linear-gradient(to right, #22d3ee, #5eead4, #2dd4bf);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;
+
+O en Tailwind:
+class="bg-gradient-to-r from-cyan-400 via-teal-300 to-teal-400 bg-clip-text text-transparent"
+
+
+## 2. CARDS DE "Build Custom Agents" (Material Procurement, Subcontractor Vetting, Permit Tracking)
+
+**Card 1 (Material Procurement):** Púrpura
+background: linear-gradient(to bottom right, rgba(88, 28, 135, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(192, 132, 252, 0.35);
+Ícono color: #c084fc
+
+**Card 2 (Subcontractor Vetting):** Cyan
+background: linear-gradient(to bottom right, rgba(22, 78, 99, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(34, 211, 238, 0.35);
+Ícono color: #22d3ee
+
+**Card 3 (Permit Tracking):** Emerald
+background: linear-gradient(to bottom right, rgba(6, 78, 59, 0.45), rgba(15, 23, 42, 0.9));
+border: 1px solid rgba(52, 211, 153, 0.35);
+Ícono color: #34d399
+
+
+## 3. CÍRCULO "AI BUILT FOR THE ENTERPRISE"
+
+Cambiar el fondo del círculo a un gradiente sutil con la paleta:
+
+background: linear-gradient(135deg, rgba(88, 28, 135, 0.3), rgba(22, 78, 99, 0.3), rgba(6, 78, 59, 0.2));
+border: 1px solid rgba(34, 211, 238, 0.2);
+
+O una versión más simple con solo cyan:
+background: linear-gradient(135deg, rgba(22, 78, 99, 0.4), rgba(15, 23, 42, 0.8));
+border: 1px solid rgba(34, 211, 238, 0.25);
+
+
+## 4. ÍCONOS FLOTANTES ALREDEDOR DEL CÍRCULO (si los hay)
+
+Aplicar los mismos colores de la paleta a los íconos/burbujas flotantes:
+- Ícono 1: fondo rgba(88, 28, 135, 0.3), borde rgba(192, 132, 252, 0.3) (Púrpura)
+- Ícono 2: fondo rgba(22, 78, 99, 0.3), borde rgba(34, 211, 238, 0.3) (Cyan)
+- Ícono 3: fondo rgba(6, 78, 59, 0.3), borde rgba(52, 211, 153, 0.3) (Emerald)
+- Ícono 4: fondo rgba(30, 58, 138, 0.3), borde rgba(96, 165, 250, 0.3) (Azul)
+
+Alternar estos colores entre los diferentes íconos flotantes.
+
+
+## RESUMEN DE CAMBIOS
+1. Título "Build Custom Agents..." → Gradiente cyan/teal
+2. Cards de custom agents → Púrpura, Cyan, Emerald
+3. Círculo enterprise → Gradiente sutil cyan
+4. Íconos flotantes → Alternar entre Púrpura, Cyan, Emerald, Azul
+
+## IMPORTANTE
+- NO cambiar textos ni contenido
+- NO cambiar estructura ni layout
+- Mantener la coherencia con las otras secciones que ya tienen esta paleta

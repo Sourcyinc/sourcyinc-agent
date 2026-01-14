@@ -1,0 +1,146 @@
+You are working on the **Pricing** page of the Sourcy website.
+
+This task applies **ONLY** to the **Text Agents** pricing card and its **“Get Started”** button behavior.
+Do NOT change the pricing page copy, prices, Voice Agents flow, or Full Stack Bundle flow.
+
+---
+
+# GOAL
+When a user clicks **“Get Started”** on **Text Agents**, they should be able to:
+1) See the currently available **Text Agents**
+2) Select **one or multiple agents**
+3) Optionally increase quantity per agent (for multiple businesses/instances)
+4) See the total price update in real time
+5) Click a final CTA (e.g., **“Buy”**) that will later connect to **Stripe Checkout**
+   - Stripe integration is NOT implemented yet (placeholder only)
+
+The UI must feel:
+- Futuristic but subtle
+- Clean and premium
+- Fully consistent with the Sourcy dark/gradient aesthetic
+- Low-friction and experience-first (no heavy explanations)
+
+---
+
+# UI BEHAVIOR (MANDATORY)
+
+## Trigger
+- Clicking **Text Agents → “Get Started”** opens a **modal** (preferred for a clean, futuristic feel)
+- The modal should:
+  - Dim/blur the background slightly
+  - Use the same dark gradient / soft glow style as the rest of the site
+  - Be keyboard accessible (Esc closes, focus trap, close icon)
+
+Do NOT expand a long accordion inline on the pricing page (keep the page clean).
+
+---
+
+# MODAL CONTENT (MANDATORY)
+
+## Modal Title
+Use a short, confident title such as:
+- **“Select Your Text Agents”**
+
+## Short Subtitle (1 line max)
+- Example: **“Choose what you need now. Add more anytime.”**
+Keep it calm and non-salesy.
+
+---
+
+## AGENT LIST (CURRENT TEXT AGENTS)
+Show the currently available Text Agents as selectable items (cards or rows), each with:
+- Agent Name
+- One-line outcome statement (short, professional)
+- Price per agent (monthly)
+- Quantity control
+
+### Agents to include (based on current catalog):
+- Lead Qualification
+- Proposal Follow-Up
+- Appointment Scheduling
+- Customer Service (Text)
+- Invoice Generator
+- CRM Analysis
+- Payment Reminders
+- Portfolio Analysis
+
+(Do not introduce new agents beyond this list.)
+
+---
+
+# SELECTION + QUANTITY RULES (MANDATORY)
+
+## Selection
+- Each agent item has:
+  - A checkbox or toggle to select/deselect
+  - Selected state is clearly visible (subtle glow + border)
+
+## Quantity
+- Each selected agent shows a quantity control:
+  - “–” and “+” buttons
+  - Default quantity = **1**
+  - Minimum = **1**
+  - Quantity controls should be disabled/hidden when the agent is not selected
+
+## Pricing logic
+- Each agent has a price (monthly) used for calculation.
+- Total updates instantly:
+  - **Total = sum(agent_price * quantity)**
+- Display total as:
+  - **“Total: $X,XXX / month”**
+- Keep calculations in USD.
+
+---
+
+# PRICE VALUES (MANDATORY FOR THIS MVP)
+
+Use these monthly prices for the Text Agents selection modal:
+
+- Lead Qualification (Text): **$900 / month**
+- Proposal Follow-Up (Text): **$900 / month**
+- Appointment Scheduling (Text): **$700 / month**
+- Customer Service (Text): **$1,100 / month**
+- Invoice Generator: **$600 / month**
+- CRM Analysis: **$1,200 / month**
+- Payment Reminders: **$600 / month**
+- Portfolio Analysis: **$1,200 / month**
+
+Do NOT show setup fees inside this modal for now.
+This modal is for selecting and purchasing ongoing monthly plans (Stripe later).
+
+---
+
+# CHECKOUT CTA (MANDATORY)
+
+At the bottom of the modal, add:
+1) Total price summary (sticky within modal footer)
+2) Primary CTA button:
+   - Label: **“Buy”**
+   - Subtext (optional, very small): **“Secure checkout via Stripe”**
+3) Secondary option:
+   - “Cancel” or close icon
+
+## Stripe placeholder behavior (for now)
+- Clicking **“Buy”** should call a placeholder function or route (e.g., `startStripeCheckout()`)
+- The actual Stripe account connection will be implemented later.
+- For now, it can open a placeholder confirmation or log the selected items payload.
+
+---
+
+# DATA OUTPUT (FOR STRIPE LATER)
+
+Prepare the payload structure upon clicking “Buy”:
+
+```json
+{
+  "plan_type": "text_agents",
+  "items": [
+    {
+      "agent_name": "Lead Qualification",
+      "unit_price_monthly": 900,
+      "quantity": 2
+    }
+  ],
+  "total_monthly": 1800,
+  "currency": "USD"
+}

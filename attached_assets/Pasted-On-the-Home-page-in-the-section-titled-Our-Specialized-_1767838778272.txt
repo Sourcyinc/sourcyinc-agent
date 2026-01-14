@@ -1,0 +1,28 @@
+On the Home page, in the section titled **“Our Specialized Agents”**, update the short descriptive text inside each agent card so it aligns conceptually with the more detailed descriptions used on the **Agents** page.
+
+The objective is messaging consistency. The Home page versions must remain concise due to space constraints, but they must communicate the same core value, scope, and expectations as their counterparts on the Agents page.
+
+Update the card copy as follows:
+
+Lead Qualification  
+Replace the current short description with a condensed version stating that the agent automatically handles inbound calls, qualifies real opportunities, and filters out low intent conversations.
+
+Proposal Follow-up  
+Replace the current short description with a concise version explaining that the agent follows up on proposals automatically, revives inactive deals, and keeps opportunities moving forward.
+
+Appointment Scheduling  
+Replace the current short description with a shortened version explaining that the agent manages scheduling conversations and books meetings automatically without manual coordination.
+
+Customer Service  
+Replace the current short description with a concise version stating that the agent answers inbound calls around the clock, resolves common requests, and escalates when needed.
+
+For all agent cards in this section, update the availability label currently shown as “Ready in 5–7 days” to reflect business days and realistic delivery expectations.
+
+Use consistent wording across all cards, such as:  
+“Ready in 5–10 business days”
+
+This phrasing should clearly communicate a maximum delivery window of up to two weeks, while still allowing for earlier delivery without setting unrealistic expectations.
+
+Do not change layouts, colors, icons, background styles, or visual treatments in this section.  
+Do not introduce new features or additional concepts.  
+Only update the copy and the availability wording to ensure consistency between the Home page and the Agents page.

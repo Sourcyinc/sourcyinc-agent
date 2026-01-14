@@ -1,0 +1,133 @@
+## UPDATE EXISTING “GET STARTED” PAGE (FOOTER ENTRY POINT)
+
+⚠️ IMPORTANT:
+This page **already exists**.
+Do NOT create a new route or a new page.
+All changes below must be applied to the **existing Get Started page**, specifically when accessed from the **footer CTA (“Get Started”)**.
+
+---
+
+### 🔒 PAGE BEHAVIOR & NAVIGATION (FOOTER ENTRY)
+
+When accessed from the footer:
+
+- ❌ Hide header
+- ❌ Hide footer
+- ❌ Hide all navigation menus
+- ❌ Remove any external links
+
+✅ The ONLY exit path:
+- Clicking the **large Sourcy logo**, which redirects back to **Home**
+
+This creates a focused, distraction-free experience.
+
+---
+
+### 🎨 BACKGROUND & VISUAL STYLE
+
+- Update the background to match **Image #4** (dark, elegant gradient).
+- Maintain Sourcy’s futuristic, premium visual language.
+- No flat colors. Subtle depth and glow.
+
+---
+
+### 🧠 LOGO REQUIREMENTS
+
+- Display the Sourcy logo **centered at the top**.
+- Logo shape and placement must match **Image #2**.
+- The **“Sourcy” text color must match Image #3** (brand color).
+- Logo is clickable and returns to **Home**.
+
+---
+
+### 🧩 MAIN CONTENT (CENTERED)
+
+#### Headline:
+**“See how AI agents can actually help your business run smoother”**
+
+#### Subheadline:
+“Let’s remove the busywork that slows your business down.”
+
+---
+
+### 📦 INFORMATION CARD (WHITE BOX)
+
+- Use a white container, centered.
+- Increase font size for readability.
+- Soft corners and subtle shadow.
+
+Content inside the box:
+
+- **Answer a few simple questions**
+- **Takes less than 2 minutes**
+- **We’ll review your needs and reach out**
+
+Replace any wording similar to:
+> “Our team follows up with your best options”
+
+With:
+> “We’ll review your needs and reach out”
+
+---
+
+### 🤖 AI AGENT IDENTITY
+
+Below the white box:
+
+- Circular avatar labeled **Mr. Sourcy**
+- Small green “active” indicator
+- This is the AI guide for the experience
+
+---
+
+### 🚀 PRIMARY CTA
+
+Button:
+**Start Conversation →**
+
+- Prominent and centered
+- On click:
+  - Open a floating chat window
+  - Same style and behavior as **Image #3**
+  - No page reload
+
+Below the button:
+**“No commitment · Just clarity”**
+
+---
+
+### 💬 CHAT WINDOW
+
+- Floating modal/chat UI
+- Clean, human, professional tone
+- Assistant name: **Mr. Sourcy**
+- First message should feel helpful, calm, and non-salesy
+
+---
+
+### 🧾 FOOTNOTE
+
+Bottom center:
+**Powered by Sourcy**
+
+---
+
+### 📸 IMAGE REFERENCES
+
+I will provide **3 images**, in this exact order, as visual references:
+
+1. Overall layout and messaging structure
+2. Logo placement and shape
+3. Chat window style and interaction
+
+Use them as **visual guidance only**.
+
+---
+
+### 🎯 GOAL
+
+This update should:
+- Remove distractions
+- Feel intentional and premium
+- Guide the user naturally into a conversation
+- Reinforce Sourcy as a **partner**, not a tool

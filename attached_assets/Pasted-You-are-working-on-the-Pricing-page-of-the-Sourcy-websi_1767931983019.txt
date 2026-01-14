@@ -1,0 +1,91 @@
+You are working on the **Pricing** page of the Sourcy website.
+
+This task applies **ONLY** to the **Full Stack Bundle** pricing card and its **“Contact Sales”** button.
+Do NOT change Text Agents or Voice Agents modals/flows.
+
+---
+
+# GOAL
+When the user clicks **“Contact Sales”** on the **Full Stack Bundle** card, open a **modal** (popup) that captures lead details for a bundle-level conversation.
+
+The modal must feel:
+- Premium, modern, confident
+- Minimal copy (no long explanations)
+- Consistent with Sourcy’s dark gradient + subtle glow style
+- Invitation-based (not salesy)
+
+---
+
+# MODAL STRUCTURE (MANDATORY)
+
+## Header
+**Title (short + confident):**
+**“Build Your Full Stack Agent System”**
+
+**One-line statement (impactful, not hype):**
+**“Combine voice, text, and workflows into one system that runs your operations—without the back-and-forth.”**
+
+(Do not add more paragraphs.)
+
+Close icon on the top-right. ESC closes. Background dim/blur.
+
+---
+
+# FORM FIELDS (MANDATORY)
+
+Use these fields in this exact order and with clear labels:
+
+1) **Name** (text input)
+2) **Last Name** (text input)
+3) **Email** (email input)
+4) **Phone Number** (tel input)
+5) **Company Name** (text input)
+6) **Industry** (text input, OPEN — NOT a dropdown)
+
+7) **What should AI handle for you?** (textarea, OPEN)
+- Helper/placeholder text (short, guiding, high-quality):
+  **“Tell us what you want handled across voice, text, follow-ups, scheduling, CRM, or workflows.”**
+
+Do NOT mention construction or any single industry.
+
+---
+
+# PRIMARY CTA (MANDATORY)
+
+Button label:
+**“Request a Call”**
+
+Secondary action:
+**“Cancel”** (or allow closing via X)
+
+Do NOT add additional CTAs.
+
+---
+
+# SUBTLE TRUST LINE (OPTIONAL, 1 LINE MAX)
+Under the button (small text):
+**“A specialist will review your request and reach out.”**
+
+No more than one line.
+
+---
+
+# DATA HANDLING (MANDATORY)
+
+On submit:
+- Validate required fields: Name, Last Name, Email, Phone Number, Company Name, Industry, and the textarea
+- Prepare a JSON payload with the form values
+
+Use this payload structure:
+
+```json
+{
+  "source": "pricing_full_stack_bundle",
+  "name": "",
+  "last_name": "",
+  "email": "",
+  "phone_number": "",
+  "company_name": "",
+  "industry": "",
+  "request": ""
+}

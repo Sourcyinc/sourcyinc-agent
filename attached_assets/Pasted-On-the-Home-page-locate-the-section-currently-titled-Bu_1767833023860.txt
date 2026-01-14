@@ -1,0 +1,29 @@
+On the **Home page**, locate the section currently titled **“Build Custom Agents for Your Unique Workflow”** (the section with animated cards and a central expanding panel). Update the **text content only** to remove industry-specific language and reposition this section as a universal, cross-industry explanation of custom AI agents. Keep the existing layout, animations, and visual structure unchanged.
+
+The goal of this section is to explain that Sourcy builds **custom agents for unique workflows**, without anchoring the message to a single niche such as construction. The language should feel adaptable, abstract, and easy for any business to project their own processes onto.
+
+Important writing guideline:  
+Do not use dashes, hyphens, or long dash symbols in any of the text. Avoid constructions such as “end-to-end”, “follow-up”, or sentences joined by dashes. All copy should flow naturally using commas or periods only.
+
+Update the main heading and paragraph as follows:
+
+## Build Custom Agents for Your Unique Workflow
+
+Pre built agents are just the starting point. Tell us how your business operates, and we will design agents that fit your workflows. From internal operations to customer facing processes, everything is built around how you actually work.
+
+For the animated cards, replace industry specific examples with **workflow based use cases** that apply across multiple industries. Use the following structure and wording, ensuring natural sentence flow without dashes:
+
+### Verification and Compliance
+Credentials, approvals, and validations handled automatically.
+
+### Operations and Procurement
+Requests, approvals, and operational workflows handled without manual effort.
+
+### Tracking and Monitoring
+Real time visibility into processes, statuses, and progress.
+
+For the large animated panel at the bottom, which dynamically reflects the smaller cards, ensure the expanded content mirrors the active card using slightly more descriptive language while remaining industry agnostic. Each expanded state should read as a complete, natural sentence without the use of dashes or hyphenated terms.
+
+Do not introduce industry names, regulatory language tied to a single sector, or construction specific terminology. This section should clearly communicate that Sourcy adapts to **any workflow**, not the other way around.
+
+Do not modify colors, animations, spacing, or interaction logic. All changes should be limited strictly to copy and conceptual framing within this section on the Home page.

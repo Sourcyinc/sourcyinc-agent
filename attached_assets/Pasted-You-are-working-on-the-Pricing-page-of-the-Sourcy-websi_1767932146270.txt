@@ -1,0 +1,99 @@
+You are working on the **Pricing** page of the Sourcy website.
+
+Add a **fourth pricing option** called **“Custom-made AI Agent”**.
+This option is for users who don’t fit the Text/Voice catalog and aren’t ready to choose a predefined package.
+
+Do NOT modify the existing three options’ copy, pricing, or flows.
+
+---
+
+## 4TH OPTION: CUSTOM-MADE AI AGENT (MANDATORY)
+
+### Card title
+**Custom-made AI Agent**
+
+### Card positioning
+- Place it as a fourth option alongside the existing three pricing cards.
+- Maintain the same visual grid, spacing, and alignment (same height and baseline).
+- It should be premium and consistent, but not more visually dominant than the Full Stack Bundle.
+
+### Card microcopy (short, calm, consultive)
+Use 1–2 lines maximum. Example intent:
+- “Tell us what you need. We’ll scope it with you and propose the right solution.”
+
+Do NOT mention any specific industry (e.g., construction).
+
+### CTA button on the card
+Label: **“Describe Your Idea”**
+
+Do NOT add pricing numbers for this option.
+
+---
+
+## MODAL BEHAVIOR (MANDATORY)
+
+When the user clicks **“Describe Your Idea”**, open a modal (popup) that matches Sourcy’s style:
+- Dark gradient background
+- Subtle glow
+- Dim/blur page behind
+- Close icon + ESC to close
+- Minimal text (no long explanations)
+
+---
+
+## MODAL HEADER (MANDATORY)
+
+Title:
+**“Let’s Build What You Actually Need”**
+
+One-line statement (no hype, clarity-first):
+**“Share your goal and we’ll recommend the best agent setup—then price it based on scope.”**
+
+---
+
+## FORM FIELDS (MANDATORY)
+
+Collect these fields in this exact order:
+
+1) **Name** (text input)
+2) **Last Name** (text input)
+3) **Email** (email input)
+4) **Phone Number** (tel input)
+5) **Company Name** (text input)
+6) **Industry** (text input, OPEN — NOT a dropdown)
+7) **What do you want the AI agent to do?** (textarea, OPEN)
+
+Textarea placeholder (short, guiding):
+**“Describe the outcome you want. Include channels (text/voice), integrations (CRM), and any workflows.”**
+
+---
+
+## CTA INSIDE MODAL (MANDATORY)
+
+Primary button label:
+**“Request a Quote”**
+
+Secondary:
+**Cancel** (or close icon)
+
+No other CTAs.
+
+---
+
+## SUBMISSION BEHAVIOR (MANDATORY)
+
+On submit:
+- Validate required fields (all fields required except Industry can be optional if you prefer; default to required for now).
+- Prepare a JSON payload with this structure:
+
+```json
+{
+  "source": "pricing_custom_agent",
+  "name": "",
+  "last_name": "",
+  "email": "",
+  "phone_number": "",
+  "company_name": "",
+  "industry": "",
+  "request": ""
+}

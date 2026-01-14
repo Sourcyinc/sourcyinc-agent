@@ -1,0 +1,145 @@
+# Código CSS para tu página de Sourcy
+
+---
+
+## 1. HEADER (Navbar)
+
+El header debe tener el **mismo color de fondo** que el resto de la página para que se vea uniforme.
+
+```css
+/* Header / Navbar */
+header {
+  background-color: #0a0f1a; /* Mismo azul oscuro del fondo principal */
+  /* O puedes usar: */
+  background-color: #020617; /* slate-950 de Tailwind */
+  
+  border-bottom: 1px solid rgba(51, 65, 85, 0.5); /* Línea sutil opcional */
+}
+```
+
+**Si usas Tailwind CSS:**
+```html
+<header class="bg-slate-950 border-b border-slate-800/50">
+  <!-- contenido del header -->
+</header>
+```
+
+---
+
+## 2. FONDO DEGRADADO DIAGONAL (Hero Section)
+
+Este es el fondo con el efecto de luz diagonal que elegiste:
+
+```css
+/* Fondo Degradado Diagonal */
+.hero-section {
+  background: 
+    linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, transparent 50%, rgba(0, 255, 163, 0.1) 100%),
+    radial-gradient(ellipse at center, rgba(0, 200, 200, 0.1) 0%, transparent 60%);
+  background-color: #020617; /* Color base slate-950 */
+}
+```
+
+**Si usas Tailwind CSS (con estilos inline):**
+```html
+<section 
+  class="bg-slate-950"
+  style="background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, transparent 50%, rgba(0, 255, 163, 0.1) 100%), radial-gradient(ellipse at center, rgba(0, 200, 200, 0.1) 0%, transparent 60%);"
+>
+  <!-- contenido del hero -->
+</section>
+```
+
+---
+
+## 3. FONDO COMPLETO DE LA PÁGINA
+
+Para que todo sea uniforme:
+
+```css
+/* Fondo general de toda la página */
+body {
+  background-color: #020617; /* slate-950 */
+  /* O el color que uses actualmente: */
+  background-color: #0a0f1a;
+}
+```
+
+---
+
+## 4. TEXTO GRADIENTE "Intelligent Agents"
+
+```css
+/* Texto con gradiente Cyan Eléctrico */
+.gradient-text {
+  background: linear-gradient(to right, #22d3ee, #5eead4, #34d399);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+```
+
+**Tailwind CSS:**
+```html
+<span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+  Intelligent Agents
+</span>
+```
+
+---
+
+## 5. BOTONES GRANDES
+
+```css
+/* Botón Principal - Explore Agents */
+.btn-primary {
+  background: linear-gradient(to right, #06b6d4, #2dd4bf);
+  color: white;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem; /* py-5 px-10 */
+  font-size: 1.125rem; /* text-lg */
+  border-radius: 9999px; /* rounded-full */
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.3);
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 25px -5px rgba(6, 182, 212, 0.5);
+}
+
+/* Botón Secundario - Book a Demo */
+.btn-secondary {
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
+  border-radius: 9999px;
+  border: 2px solid #475569; /* slate-600 */
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(30, 41, 59, 0.8);
+  border-color: #64748b;
+}
+```
+
+---
+
+## PROMPT PARA TU IA
+
+Copia y pega esto:
+
+```
+Necesito que hagas los siguientes cambios en mi landing page:
+
+1. HEADER: Cambia el fondo del header/navbar para que tenga el mismo color que el fondo de la página (background-color: #020617 o slate-950). Agrega un borde inferior sutil: border-bottom: 1px solid rgba(51, 65, 85, 0.5)
+
+2. HERO SECTION: Agrega este fondo con degradado diagonal detrás del texto principal "Build Smarter with Intelligent Agents":
+
+background: linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, transparent 50%, rgba(0, 255, 163, 0.1) 100%), radial-gradient(ellipse at center, rgba(0, 200, 200, 0.1) 0%, transparent 60%);
+
+3. BOTONES: Haz los botones "Explore Agents" y "Book a Demo" más grandes con padding: 1.25rem 2.5rem (o py-5 px-10 en Tailwind) y font-size: 1.125rem (text-lg en Tailwind)
+```

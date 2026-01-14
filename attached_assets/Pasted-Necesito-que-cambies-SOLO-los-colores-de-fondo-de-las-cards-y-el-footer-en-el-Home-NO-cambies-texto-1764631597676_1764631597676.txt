@@ -1,0 +1,60 @@
+Necesito que cambies SOLO los colores de fondo de las cards y el footer en el Home. NO cambies textos, íconos ni estructura.
+
+## SECCIÓN "WHY SOURCY?" - Cards de estadísticas
+
+Cambiar el fondo de cada card con estos colores (mantener todo lo demás igual):
+
+**Card 1 (Multilingual):**
+background: linear-gradient(to bottom right, rgba(76, 29, 149, 0.4), rgba(76, 29, 149, 0.2));
+border: 1px solid rgba(139, 92, 246, 0.3);
+
+**Card 2 (< 2 min - Response Time):**
+background: linear-gradient(to bottom right, rgba(112, 26, 117, 0.4), rgba(112, 26, 117, 0.2));
+border: 1px solid rgba(232, 121, 249, 0.3);
+
+**Card 3 (+30% - ROI Increase):**
+background: linear-gradient(to bottom right, rgba(22, 78, 99, 0.4), rgba(22, 78, 99, 0.2));
+border: 1px solid rgba(6, 182, 212, 0.3);
+
+**Card 4 (70% - Efficiency Boost):**
+background: linear-gradient(to bottom right, rgba(19, 78, 74, 0.4), rgba(19, 78, 74, 0.2));
+border: 1px solid rgba(45, 212, 191, 0.3);
+
+
+## SECCIÓN "THE CORE PILLARS OF AUTOMATION" - Cards de features
+
+**Card 1 (Voice Automation):**
+background: linear-gradient(to bottom right, rgba(76, 29, 149, 0.4), rgba(76, 29, 149, 0.2));
+border: 1px solid rgba(139, 92, 246, 0.3);
+
+**Card 2 (Intelligent Text):**
+background: linear-gradient(to bottom right, rgba(112, 26, 117, 0.4), rgba(112, 26, 117, 0.2));
+border: 1px solid rgba(232, 121, 249, 0.3);
+
+**Card 3 (Data Driven):**
+background: linear-gradient(to bottom right, rgba(22, 78, 99, 0.4), rgba(22, 78, 99, 0.2));
+border: 1px solid rgba(6, 182, 212, 0.3);
+
+
+## FOOTER
+
+Cambiar el fondo del footer a este gradiente suave:
+
+background: linear-gradient(to bottom, #1e293b, rgba(46, 16, 101, 0.15), #0f172a);
+
+O en CSS más detallado:
+background: linear-gradient(to bottom, 
+  #1e293b 0%, 
+  rgba(46, 16, 101, 0.15) 50%, 
+  #0f172a 100%
+);
+
+También agregar este borde superior sutil al footer:
+border-top: 1px solid rgba(51, 65, 85, 0.5);
+
+
+## IMPORTANTE
+- NO cambiar textos ni contenido
+- NO cambiar íconos
+- NO cambiar estructura ni layout
+- SOLO aplicar los colores de fondo y bordes indicados
