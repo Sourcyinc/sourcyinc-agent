@@ -767,7 +767,10 @@ function TextAgentWidget() {
           ...prev,
           {
             role: "agent",
-            text: data.response || data.message || "Thanks for your message! Our team will get back to you shortly.",
+            text:
+              data.response ||
+              data.message ||
+              "Thanks for your message! Our team will get back to you shortly.",
           },
         ]);
       }
@@ -855,15 +858,28 @@ function TextAgentWidget() {
                 </button>
               </div>
               <p className="text-xs text-slate-500 mt-2 text-center">
-                Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">Enter</kbd> for a new line, click the send button to send your message
+                Press{" "}
+                <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
+                  Enter
+                </kbd>{" "}
+                for a new line, click the send button to send your message
               </p>
               {isTyping && (
                 <div className="flex justify-start mt-2">
                   <div className="bg-slate-800 text-slate-400 px-3 py-2 rounded-xl border border-slate-700">
                     <div className="flex gap-1.5">
-                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                      <div className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0ms" }}
+                      />
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "150ms" }}
+                      />
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "300ms" }}
+                      />
                     </div>
                   </div>
                 </div>
@@ -923,7 +939,7 @@ function VoiceAgentWidget() {
       };
 
       await fetch(
-        "https://n8n.arkoswearshop.com/webhook-test/cf52b748-d3e4-45d0-af04-58f1126be79c",
+        "https://n8n.arkoswearshop.com/webhook/cf52b748-d3e4-45d0-af04-58f1126be79c",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -1044,7 +1060,10 @@ function VoiceAgentWidget() {
                         value={formData.phone_number}
                         onChange={(e) => {
                           // Solo permitir números
-                          const numericValue = e.target.value.replace(/\D/g, "");
+                          const numericValue = e.target.value.replace(
+                            /\D/g,
+                            "",
+                          );
                           setFormData({
                             ...formData,
                             phone_number: numericValue,

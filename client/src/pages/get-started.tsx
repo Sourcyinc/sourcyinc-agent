@@ -1,7 +1,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import { Link } from "wouter";
-import { ArrowRight, Send, X, MessageCircle, Clock, CheckCircle2, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Send,
+  X,
+  MessageCircle,
+  CheckCircle2,
+  Sparkles,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import logo from "@assets/favi_1763705012744.png";
@@ -19,7 +26,7 @@ export default function GetStarted() {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   // Generate a unique chat session ID
   const generateChatId = (): string => {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -66,18 +73,21 @@ export default function GetStarted() {
           {
             id: 1,
             sender: "agent",
-            text: "Hi there! 👋 I'm Mr. Sourcy, your AI solutions guide."
-          }
+            text: "Hi there! 👋 I'm your AI solutions guide.",
+          },
         ]);
         setIsTyping(false);
         setTimeout(() => {
           setIsTyping(true);
           setTimeout(() => {
-            setMessages(prev => [...prev, {
-              id: 2,
-              sender: "agent",
-              text: "I help businesses understand where AI can remove friction, save time, and improve how things run across text, voice, workflows, and internal systems. To get started, tell me a bit about what you're trying to improve or simplify in your business right now."
-            }]);
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: 2,
+                sender: "agent",
+                text: "I help businesses understand where AI can remove friction, save time, and improve how things run across text, voice, workflows, and internal systems. To get started, tell me a bit about what you're trying to improve or simplify in your business right now.",
+              },
+            ]);
             setIsTyping(false);
           }, 1500);
         }, 500);
@@ -87,23 +97,24 @@ export default function GetStarted() {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
-    
+
     const userMessage: Message = {
       id: messages.length + 1,
       sender: "user",
-      text: inputValue
+      text: inputValue,
     };
-    
-    setMessages(prev => [...prev, userMessage]);
+
+    setMessages((prev) => [...prev, userMessage]);
     const messageText = inputValue;
     setInputValue("");
-    
+
     setIsTyping(true);
-    
+
     try {
       const chatId = getOrCreateChatId();
-      
-      // Send to backend API (same as brightcoast)
+
+      // Send to backend API
+      console.log("Sending message to backend:", messageText);
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -122,56 +133,68 @@ export default function GetStarted() {
       }
 
       const data = await response.json();
-      
+
       setIsTyping(false);
-      
+
       // Add agent response if provided by n8n
       if (data.response || data.message) {
-        setMessages(prev => [...prev, {
-          id: prev.length + 1,
-          sender: "agent",
-          text: data.response || data.message || "Thanks for your message! Our team will get back to you shortly."
-        }]);
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: prev.length + 1,
+            sender: "agent",
+            text:
+              data.response ||
+              data.message ||
+              "Thanks for your message! Our team will get back to you shortly.",
+          },
+        ]);
       }
     } catch (error) {
       console.error("Error sending message:", error);
       setIsTyping(false);
-      setMessages(prev => [...prev, {
-        id: prev.length + 1,
-        sender: "agent",
-        text: "Sorry, there was an error sending your message. Please try again."
-      }]);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          sender: "agent",
+          text: "Sorry, there was an error sending your message. Please try again.",
+        },
+      ]);
     }
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden"
       style={{
         background: `
           linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, transparent 50%, rgba(0, 255, 163, 0.1) 100%),
           radial-gradient(ellipse at center, rgba(0, 200, 200, 0.1) 0%, transparent 60%),
           #020617
-        `
+        `,
       }}
     >
-      <div 
+      <div
         className="absolute inset-0 opacity-40"
         style={{
           background: `
             radial-gradient(ellipse at 30% 20%, rgba(6, 182, 212, 0.2) 0%, transparent 50%),
             radial-gradient(ellipse at 70% 80%, rgba(20, 184, 166, 0.15) 0%, transparent 50%)
-          `
+          `,
         }}
       />
 
       <Link href="/">
-        <a className="absolute top-8 left-1/2 -translate-x-1/2 z-20 cursor-pointer hover:opacity-90 transition-opacity group" data-testid="link-home-logo">
+        <a
+          className="absolute top-8 left-1/2 -translate-x-1/2 z-20 cursor-pointer hover:opacity-90 transition-opacity group"
+          data-testid="link-home-logo"
+        >
           <div className="flex items-center gap-3">
-            <img 
-              src={logo} 
-              alt="Sourcy" 
-              className="h-12 w-auto object-contain transition-transform group-hover:scale-105" 
+            <img
+              src={logo}
+              alt="Sourcy"
+              className="h-12 w-auto object-contain transition-transform group-hover:scale-105"
             />
             <span className="font-heading font-bold text-2xl tracking-tight text-brand-gradient">
               Sourcy
@@ -180,13 +203,13 @@ export default function GetStarted() {
         </a>
       </Link>
 
-      <div className="relative z-10 flex flex-col items-center px-6 max-w-2xl mx-auto text-center pt-16">
+      <div className="relative z-10 flex flex-col items-center px-6 max-w-2xl mx-auto text-center pt-18">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 mt-5 leading-tight">
             See how AI agents can actually help your business{" "}
             <span className="bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
               run smoother
@@ -200,7 +223,8 @@ export default function GetStarted() {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-xl text-slate-300 mb-12 max-w-xl leading-relaxed"
         >
-          Let's remove the busywork that slows your business down, so your team can focus on what truly matters.
+          Let's remove the busywork that slows your business down, so your team
+          can focus on what truly matters.
         </motion.p>
 
         <motion.div
@@ -214,19 +238,27 @@ export default function GetStarted() {
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
                 <MessageCircle className="h-5 w-5 text-cyan-400" />
               </div>
-              <span className="text-base text-slate-200 leading-relaxed pt-2">We'll ask a few focused questions to understand your business</span>
+              <span className="text-base text-slate-200 leading-relaxed pt-2">
+                We'll ask a few focused questions to understand your business
+              </span>
             </div>
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
                 <Sparkles className="h-5 w-5 text-cyan-400" />
               </div>
-              <span className="text-base text-slate-200 leading-relaxed pt-2">You'll have space to explain your challenges and AI would help you</span>
+              <span className="text-base text-slate-200 leading-relaxed pt-2">
+                You'll have space to explain your challenges and AI would help
+                you
+              </span>
             </div>
             <div className="flex items-start gap-4">
               <div className="h-10 w-10 rounded-full bg-gradient-to-br from-cyan-500/20 to-teal-500/20 flex items-center justify-center flex-shrink-0 border border-cyan-500/30">
                 <CheckCircle2 className="h-5 w-5 text-cyan-400" />
               </div>
-              <span className="text-base text-slate-200 leading-relaxed pt-2">Our team reviews every request and reaches out when it makes sense</span>
+              <span className="text-base text-slate-200 leading-relaxed pt-2">
+                Our team reviews every request and reaches out when it makes
+                sense
+              </span>
             </div>
           </div>
         </motion.div>
@@ -264,8 +296,11 @@ export default function GetStarted() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-8 text-slate-500 text-sm">
-        Powered by <span className="font-semibold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">Sourcy</span>
+      <div className="mt-3 mb-5 bottom-8 text-slate-500 text-sm">
+        Powered by{" "}
+        <span className="font-semibold bg-gradient-to-r from-cyan-400 to-teal-400 bg-clip-text text-transparent">
+          Sourcy
+        </span>
       </div>
 
       <AnimatePresence>
@@ -275,7 +310,10 @@ export default function GetStarted() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            style={{ background: "rgba(2, 6, 23, 0.85)", backdropFilter: "blur(8px)" }}
+            style={{
+              background: "rgba(2, 6, 23, 0.85)",
+              backdropFilter: "blur(8px)",
+            }}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -300,8 +338,8 @@ export default function GetStarted() {
                     </div>
                   </div>
                 </div>
-                <button 
-                  onClick={() => setChatOpen(false)} 
+                <button
+                  onClick={() => setChatOpen(false)}
                   className="text-slate-400 hover:text-white transition-colors p-2 hover:bg-slate-800 rounded-lg"
                   data-testid="button-close-chat"
                 >
@@ -309,7 +347,10 @@ export default function GetStarted() {
                 </button>
               </div>
 
-              <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/50" style={{ minHeight: "350px" }}>
+              <div
+                className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/50"
+                style={{ minHeight: "350px" }}
+              >
                 {messages.map((msg) => (
                   <motion.div
                     key={msg.id}
@@ -335,7 +376,7 @@ export default function GetStarted() {
                     </div>
                   </motion.div>
                 ))}
-                
+
                 {isTyping && (
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -349,14 +390,23 @@ export default function GetStarted() {
                     </div>
                     <div className="bg-slate-800 text-slate-400 px-4 py-3 rounded-2xl rounded-bl-md border border-slate-700">
                       <div className="flex gap-1.5">
-                        <div className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <div className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <div className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <div
+                          className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "0ms" }}
+                        />
+                        <div
+                          className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "150ms" }}
+                        />
+                        <div
+                          className="h-2 w-2 bg-cyan-400 rounded-full animate-bounce"
+                          style={{ animationDelay: "300ms" }}
+                        />
                       </div>
                     </div>
                   </motion.div>
                 )}
-                
+
                 <div ref={messagesEndRef} />
               </div>
 
@@ -381,7 +431,11 @@ export default function GetStarted() {
                   </Button>
                 </div>
                 <p className="text-xs text-slate-500 mt-3 text-center">
-                  Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">Enter</kbd> for a new line, click the send button to send your message
+                  Press{" "}
+                  <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
+                    Enter
+                  </kbd>{" "}
+                  for a new line, click the send button to send your message
                 </p>
               </div>
             </motion.div>
