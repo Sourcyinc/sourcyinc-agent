@@ -10,8 +10,7 @@
   ],
   "functions": {
     "api/index.ts": {
-      "includeFiles": "dist/public/**",
-      "runtime": "nodejs20.x"
+      "includeFiles": "dist/public/**"
     }
   }
 }
