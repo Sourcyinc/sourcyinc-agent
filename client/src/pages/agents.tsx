@@ -695,9 +695,8 @@ function TextAgentWidget() {
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  
+
   // Generate a unique chat session ID
   const generateChatId = (): string => {
     if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -716,16 +715,6 @@ function TextAgentWidget() {
     }
     return chatId;
   };
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      scrollToBottom();
-    }
-  }, [messages, isOpen]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -749,7 +738,7 @@ function TextAgentWidget() {
 
     try {
       const chatId = getOrCreateChatId();
-      
+
       // Send to backend API (same as brightcoast)
       const response = await fetch("/api/chat", {
         method: "POST",
@@ -769,9 +758,9 @@ function TextAgentWidget() {
       }
 
       const data = await response.json();
-      
+
       setIsTyping(false);
-      
+
       // Add agent response if provided by n8n
       if (data.response || data.message) {
         setMessages((prev) => [
@@ -844,7 +833,6 @@ function TextAgentWidget() {
                   </div>
                 </div>
               ))}
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Chat Input */}
@@ -916,6 +904,7 @@ function VoiceAgentWidget() {
     name: "",
     surname: "",
     email: "",
+    country_code: "+1",
     phone_number: "",
     company_name: "",
     industry: "",
@@ -926,12 +915,19 @@ function VoiceAgentWidget() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      // Concatenar código de país con el número de teléfono
+      const fullPhoneNumber = `${formData.country_code}${formData.phone_number}`;
+      const payload = {
+        ...formData,
+        phone_number: fullPhoneNumber,
+      };
+
       await fetch(
         "https://n8n.arkoswearshop.com/webhook-test/cf52b748-d3e4-45d0-af04-58f1126be79c",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         },
       );
     } catch (error) {
@@ -1008,38 +1004,54 @@ function VoiceAgentWidget() {
                       />
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                        Email *
-                      </label>
-                      <input
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                      Email *
+                    </label>
+                    <input
+                      required
+                      type="email"
+                      value={formData.email}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
+                      className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                      placeholder="name@company.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-slate-400 mb-1.5">
+                      Phone Number *
+                    </label>
+                    <div className="flex gap-2">
+                      <select
                         required
-                        type="email"
-                        value={formData.email}
+                        value={formData.country_code}
                         onChange={(e) =>
-                          setFormData({ ...formData, email: e.target.value })
+                          setFormData({
+                            ...formData,
+                            country_code: e.target.value,
+                          })
                         }
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
-                        placeholder="name@company.com"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-xs font-medium text-slate-400 mb-1.5">
-                        Phone Number *
-                      </label>
+                        className="w-24 bg-slate-900 border border-slate-800 rounded-lg px-2 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                      >
+                        <option value="+1">+1</option>
+                        <option value="+57">+57</option>
+                      </select>
                       <input
                         required
                         type="tel"
                         value={formData.phone_number}
-                        onChange={(e) =>
+                        onChange={(e) => {
+                          // Solo permitir números
+                          const numericValue = e.target.value.replace(/\D/g, "");
                           setFormData({
                             ...formData,
-                            phone_number: e.target.value,
-                          })
-                        }
-                        className="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
-                        placeholder="+1 (555) 000-0000"
+                            phone_number: numericValue,
+                          });
+                        }}
+                        className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 transition-colors"
+                        placeholder="5550000000"
                       />
                     </div>
                   </div>

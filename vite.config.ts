@@ -42,6 +42,13 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    assetsDir: "assets",
+    // Asegurar que los assets se copien correctamente
+    rollupOptions: {
+      output: {
+        assetFileNames: "assets/[name].[hash].[ext]",
+      },
+    },
   },
   server: {
     host: "0.0.0.0",

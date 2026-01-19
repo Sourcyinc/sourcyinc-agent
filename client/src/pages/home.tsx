@@ -39,6 +39,25 @@ import {
   LogoClaude,
 } from "@/components/tech-logos";
 import { useState, useEffect } from "react";
+// Importar assets como módulos ES para que funcionen en producción
+import brightcoastLogo from "@/assets/logos/brightcoast.png";
+import pinelandLogo from "@/assets/logos/pineland.png";
+import designdaLogo from "@/assets/logos/designda.png";
+import gmailLogo from "@/assets/logos/gmail_new.png";
+import stripeLogo from "@/assets/logos/stripe_new.png";
+import slackLogo from "@/assets/logos/slack_new.png";
+import calendarLogo from "@/assets/logos/calendar_new.png";
+import imessageLogo from "@/assets/logos/imessage_new.png";
+import xLogo from "@/assets/logos/x_new.png";
+import twilioLogo from "@/assets/logos/twilio_new.png";
+import whatsappLogo from "@/assets/logos/whatsapp_new.png";
+import googleLogo from "@/assets/logos/google_new.png";
+import metaLogo from "@/assets/logos/meta_new.png";
+import n8nLogo from "@/assets/logos/n8n_new.png";
+import awsLogo from "@/assets/logos/aws_new.png";
+import openaiLogo from "@/assets/logos/openai.png";
+import claudeLogo from "@/assets/logos/claude_new.png";
+import pineconeLogo from "@/assets/logos/pinecone_new.png";
 
 export default function Home() {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -551,17 +570,17 @@ export default function Home() {
                     className="flex items-center gap-32 flex-shrink-0 transition-all duration-300"
                   >
                     <img
-                      src="/src/assets/logos/brightcoast.png"
+                      src={brightcoastLogo}
                       alt="Brightcoast Insurance"
                       className="h-60 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity brightness-0 invert"
                     />
                     <img
-                      src="/src/assets/logos/pineland.png"
+                      src={pinelandLogo}
                       alt="Pineland Engineering"
                       className="h-48 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity brightness-0 invert"
                     />
                     <img
-                      src="/src/assets/logos/designda.png"
+                      src={designdaLogo}
                       alt="Designda L"
                       className="h-56 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity brightness-0 invert"
                     />
@@ -1354,93 +1373,93 @@ export default function Home() {
             {[
               {
                 name: "Gmail",
-                logo: "/src/assets/logos/gmail_new.png",
+                logo: gmailLogo,
                 type: "image",
                 color: "bg-black",
               },
               {
                 name: "Stripe",
-                logo: "/src/assets/logos/stripe_new.png",
+                logo: stripeLogo,
                 type: "image",
                 color: "bg-[#635BFF]",
               },
               {
                 name: "Slack",
-                logo: "/src/assets/logos/slack_new.png",
+                logo: slackLogo,
                 type: "image",
                 color: "bg-black",
               },
               {
                 name: "Calendar",
-                logo: "/src/assets/logos/calendar_new.png",
+                logo: calendarLogo,
                 type: "image",
                 color: "bg-black",
               },
               {
                 name: "Messages",
-                logo: "/src/assets/logos/imessage_new.png",
+                logo: imessageLogo,
                 type: "image",
                 color: "bg-[#4ade80]",
               },
 
               {
                 name: "X",
-                logo: "/src/assets/logos/x_new.png",
+                logo: xLogo,
                 type: "image",
                 color: "bg-black",
               },
               {
                 name: "Twilio",
-                logo: "/src/assets/logos/twilio_new.png",
+                logo: twilioLogo,
                 type: "image",
                 color: "bg-[#F22F46]",
               },
               {
                 name: "WhatsApp",
-                logo: "/src/assets/logos/whatsapp_new.png",
+                logo: whatsappLogo,
                 type: "image",
                 color: "bg-[#25D366]",
               },
               {
                 name: "Google",
-                logo: "/src/assets/logos/google_new.png",
+                logo: googleLogo,
                 type: "image",
                 color: "bg-white",
               },
               {
                 name: "Meta",
-                logo: "/src/assets/logos/meta_new.png",
+                logo: metaLogo,
                 type: "image",
                 color: "bg-black",
               },
 
               {
                 name: "n8n",
-                logo: "/src/assets/logos/n8n_new.png",
+                logo: n8nLogo,
                 type: "image",
                 color: "bg-[#EA4B71]",
               },
               {
                 name: "AWS",
-                logo: "/src/assets/logos/aws_new.png",
+                logo: awsLogo,
                 type: "image",
                 color: "bg-[#232F3E]",
               },
               {
                 name: "OpenAI",
-                logo: "/src/assets/logos/openai.png",
+                logo: openaiLogo,
                 type: "image",
                 color: "bg-black",
               },
               {
                 name: "Claude",
-                logo: "/src/assets/logos/claude_new.png",
+                logo: claudeLogo,
                 type: "image",
                 color: "bg-[#D97757]",
               },
               {
                 name: "Pinecone",
-                logo: "/src/assets/logos/pinecone_new.png",
+                logo: pineconeLogo,
                 type: "image",
                 color: "bg-black",
               },

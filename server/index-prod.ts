@@ -12,7 +12,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export async function serveStatic(app: Express, server: Server) {
-  const distPath = path.resolve(__dirname, "public");
+  // El build está en dist/public desde la raíz del proyecto
+  // __dirname es server/, así que necesitamos ir un nivel arriba
+  const distPath = path.resolve(__dirname, "..", "dist", "public");
 
   if (!fs.existsSync(distPath)) {
     throw new Error(
@@ -23,7 +25,12 @@ export async function serveStatic(app: Express, server: Server) {
   app.use(express.static(distPath));
 
   // fall through to index.html if the file doesn't exist
-  app.use("*", (_req, res) => {
+  // but skip API routes - they should be handled by registerRoutes
+  app.use("*", (req, res, next) => {
+    // Skip API routes - let them be handled by registerRoutes
+    if (req.path.startsWith("/api")) {
+      return next();
+    }
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
