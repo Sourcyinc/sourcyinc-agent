@@ -102,7 +102,7 @@ export default function Home() {
     <div className="flex flex-col w-full">
       {/* Hero Section */}
       <section
-        className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-slate-950 text-white"
+        className="relative py-4 flex items-center justify-center overflow-hidden bg-slate-950 text-white"
         style={{
           background: `
             linear-gradient(135deg, rgba(0, 217, 255, 0.15) 0%, transparent 50%, rgba(0, 255, 163, 0.1) 100%),
