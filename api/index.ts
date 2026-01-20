@@ -287,14 +287,31 @@ export default async function vercelHandler(
 ) {
   const requestStartTime = Date.now();
   
-  // LOG INMEDIATO para verificar que la función se ejecuta
+  // CRÍTICO: Restaurar el path original
+  // Vercel hace rewrite a "/api", pero req.url contiene el path original antes del rewrite
+  // Necesitamos usar req.url directamente, no el path del destino del rewrite
+  const originalUrl = req.url || '/';
+  
   console.log(`[VERCEL HANDLER] Function called at ${new Date().toISOString()}`);
-  console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}`);
-  console.log(`[VERCEL HANDLER] Headers:`, JSON.stringify(req.headers, null, 2));
+  console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}, Path: ${req.path}`);
+  console.log(`[VERCEL HANDLER] Query:`, req.query);
+  
+  // Si req.url es solo "/api" o "/", necesitamos usar el path completo
+  // En Vercel, cuando hay rewrite, req.url puede ser "/" pero el path real está en otra parte
+  // Usar req.url directamente - debería tener el path completo
+  const requestPath = originalUrl;
+  
+  // Restaurar el path en el request para que Express lo vea correctamente
+  if (req.url !== requestPath) {
+    console.log(`[VERCEL HANDLER] Restoring path: ${req.url} -> ${requestPath}`);
+    req.url = requestPath;
+    (req as any).path = requestPath.split('?')[0]; // Remover query string del path
+    (req as any).originalUrl = requestPath;
+  }
   
   try {
     // Respuesta inmediata si es un health check simple
-    if (req.url === "/api/health" && req.method === "GET") {
+    if (requestPath === "/api/health" && req.method === "GET") {
       console.log("[VERCEL HANDLER] Fast path for health check");
       return res.json({
         status: "ok",
@@ -313,9 +330,8 @@ export default async function vercelHandler(
     const initTime = Date.now() - initStartTime;
     console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
-    // Ejecutar el handler serverless
-    console.log(`[VERCEL HANDLER] Executing serverless handler for ${req.method} ${req.url}`);
-    console.log(`[VERCEL HANDLER] Request path: ${req.path}, url: ${req.url}`);
+    // Ejecutar el handler serverless con el path restaurado
+    console.log(`[VERCEL HANDLER] Executing serverless handler for ${req.method} ${requestPath}`);
     
     try {
       // serverless-http maneja automáticamente la promesa de Express
