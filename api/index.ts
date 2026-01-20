@@ -369,69 +369,87 @@ export default async function vercelHandler(
     const initTime = Date.now() - initStartTime;
     console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
-    // CRÍTICO: serverless-http está cambiando POST a GET cuando procesa el request
-    // El problema es que cuando Vercel hace rewrite, serverless-http interpreta mal el método
-    // Solución: Interceptar las rutas de API conocidas directamente
+    // CRÍTICO: serverless-http está cambiando POST a GET
+    // SOLUCIÓN: Manejar las rutas de API directamente SIN serverless-http
+    // Solo usar serverless-http para archivos estáticos (SPA routing)
+    
     if (requestPath === "/api/chat" && originalMethod === "POST") {
-      console.log(`[VERCEL HANDLER] Intercepting POST /api/chat - calling Express directly`);
+      console.log(`[VERCEL HANDLER] Handling POST /api/chat DIRECTLY (bypassing serverless-http)`);
       
-      // Usar la app de Express directamente para esta ruta específica
-      // Necesitamos crear un request de Express correcto
-      const expressReq = Object.assign(req, {
-        method: 'POST',
-        url: '/api/chat',
-        path: '/api/chat',
-        originalUrl: '/api/chat',
-        baseUrl: '',
-        route: undefined
-      });
-      
-      // Simular el request a Express directamente
-      // Pero mejor: usar el handler pero con el método preservado
-      // En realidad, lo mejor es llamar directamente a la función del endpoint
-      
-      // Obtener el body del request
-      let body = {};
-      if (req.body) {
-        body = req.body;
-      } else if (req.headers['content-type']?.includes('application/json')) {
+      // Manejar directamente sin pasar por serverless-http
+      try {
+        // Validar el body
+        const body = req.body || {};
+        console.log(`[VERCEL HANDLER] Request body:`, body);
+        
+        const validatedData = chatMessageSchema.parse(body);
+        console.log(`[VERCEL HANDLER] Validated data:`, validatedData);
+        
+        // Forward to n8n webhook con timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 15000);
+        
         try {
-          // El body puede estar en req.body ya parseado por Vercel
-          body = req.body || {};
-        } catch (e) {
-          console.error("[VERCEL HANDLER] Error parsing body:", e);
+          console.log(`[VERCEL HANDLER] Forwarding to n8n:`, N8N_WEBHOOK_URL);
+          const response = await fetch(N8N_WEBHOOK_URL, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              message: validatedData.message,
+              sender: validatedData.sender,
+              timestamp: validatedData.timestamp || new Date().toISOString(),
+              chatId: validatedData.chatId,
+            }),
+            signal: controller.signal,
+          });
+
+          clearTimeout(timeoutId);
+
+          console.log(`[VERCEL HANDLER] n8n response status:`, response.status);
+
+          if (!response.ok) {
+            const errorText = await response.text().catch(() => "Unknown error");
+            console.error(`[VERCEL HANDLER] n8n error response:`, errorText);
+            return res.status(500).json({ 
+              message: `n8n webhook returned ${response.status}: ${errorText}`
+            });
+          }
+
+          const data = await response.json();
+          console.log(`[VERCEL HANDLER] n8n response data:`, data);
+          
+          // Return the response from n8n
+          return res.json(data);
+        } catch (fetchError: any) {
+          clearTimeout(timeoutId);
+          if (fetchError.name === 'AbortError') {
+            console.error(`[VERCEL HANDLER] Request timeout to n8n`);
+            return res.status(504).json({ 
+              message: "Request to n8n timed out after 15 seconds"
+            });
+          }
+          throw fetchError;
+        }
+      } catch (error) {
+        console.error(`[VERCEL HANDLER] Error handling /api/chat:`, error);
+        if (error instanceof z.ZodError) {
+          return res.status(400).json({ 
+            message: "Invalid request data",
+            errors: error.errors 
+          });
+        } else {
+          return res.status(500).json({ 
+            message: "Failed to process chat message",
+            error: error instanceof Error ? error.message : String(error)
+          });
         }
       }
-      
-      // Llamar directamente al endpoint de chat
-      console.log(`[VERCEL HANDLER] Direct call to /api/chat with body:`, body);
-      
-      // Mejor: usar el handler serverless pero asegurando que preserve el método
-      // Necesitamos usar un wrapper
-      const wrappedReq = {
-        ...req,
-        method: 'POST',
-        url: '/api/chat',
-        path: '/api/chat',
-        originalUrl: '/api/chat',
-        headers: { ...req.headers },
-        body: body,
-        query: req.query || {},
-      } as any;
-      
-      // Preservar el método HTTP original
-      Object.defineProperty(wrappedReq, 'method', {
-        value: 'POST',
-        writable: false,
-        enumerable: true,
-        configurable: false
-      });
-      
-      return await serverlessHandler(wrappedReq, res);
     }
     
-    // Para otras rutas, usar el handler normal
-    console.log(`[VERCEL HANDLER] Executing serverless handler for ${originalMethod} ${requestPath}`);
+    // Para otras rutas (health check, archivos estáticos), usar serverless-http
+    console.log(`[VERCEL HANDLER] Using serverless-http for ${originalMethod} ${requestPath}`);
     
     // Modificar el request para preservar método y path
     (req as any).method = originalMethod;
