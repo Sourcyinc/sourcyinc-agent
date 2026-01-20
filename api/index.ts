@@ -19,6 +19,12 @@ const N8N_WEBHOOK_URL = "https://n8n.arkoswearshop.com/webhook/03c90cf6-deaf-415
 
 // Register routes function - SIMPLIFICADO para serverless (NO necesita httpServer)
 function registerRoutes(app: express.Express) {
+  // Middleware para loggear TODAS las peticiones que llegan a Express
+  app.use((req, res, next) => {
+    console.log(`[Express Router] Incoming: ${req.method} ${req.path} (url: ${req.url}, originalUrl: ${req.originalUrl})`);
+    next();
+  });
+  
   // Health check endpoint - para verificar que el servidor está funcionando
   app.get("/api/health", (req, res) => {
     console.log("[GET /api/health] Health check requested");
@@ -33,8 +39,12 @@ function registerRoutes(app: express.Express) {
 
   // Chat webhook endpoint - DEBE estar ANTES del catch-all
   app.post("/api/chat", async (req, res) => {
+    console.log("[POST /api/chat] ===== ENDPOINT CALLED =====");
     console.log("[POST /api/chat] Request received:", {
       body: req.body,
+      url: req.url,
+      path: req.path,
+      method: req.method,
       timestamp: new Date().toISOString()
     });
     
@@ -169,6 +179,12 @@ async function initializeApp() {
       registerRoutes(app);  // No es async, no necesita await
       console.log("[InitializeApp] API routes registered");
       
+      // Verificar que las rutas estén registradas
+      console.log("[InitializeApp] Registered routes:", app._router?.stack?.map((r: any) => ({
+        path: r.route?.path,
+        methods: r.route?.methods
+      })).filter((r: any) => r.path) || "No routes found");
+      
       // Error handler
       app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
         console.error("[Express] Error:", err);
@@ -227,15 +243,21 @@ async function initializeApp() {
         });
       }
 
-      // Catch-all para otros métodos HTTP
-      app.use("*", (req, res) => {
+      // Catch-all para rutas no manejadas (solo si no se envió respuesta)
+      app.use("*", (req, res, next) => {
+        console.log(`[Express Catch-all] Unhandled route: ${req.method} ${req.path}`);
+        
         if (req.path.startsWith("/api")) {
           if (!res.headersSent) {
-            res.status(404).json({ error: "API route not found", path: req.path });
+            console.log(`[Express Catch-all] Returning 404 for API route: ${req.path}`);
+            res.status(404).json({ error: "API route not found", path: req.path, method: req.method });
+          } else {
+            console.log(`[Express Catch-all] Headers already sent for ${req.path}`);
           }
-        } else if (req.method !== "GET") {
+        } else {
+          // Para rutas no-API, el catch-all GET ya las maneja arriba
           if (!res.headersSent) {
-            res.status(404).json({ error: "Route not found", path: req.path, method: req.method });
+            next(); // Pasar al siguiente middleware si hay
           }
         }
       });
@@ -291,13 +313,30 @@ export default async function vercelHandler(
     const initTime = Date.now() - initStartTime;
     console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
-    // Ejecutar el handler
-    const result = await serverlessHandler(req, res);
+    // Ejecutar el handler serverless
+    console.log(`[VERCEL HANDLER] Executing serverless handler for ${req.method} ${req.url}`);
+    console.log(`[VERCEL HANDLER] Request path: ${req.path}, url: ${req.url}`);
     
-    const requestTime = Date.now() - requestStartTime;
-    console.log(`[VERCEL HANDLER] Request completed in ${requestTime}ms total`);
-    
-    return result;
+    try {
+      // serverless-http maneja automáticamente la promesa de Express
+      const result = await serverlessHandler(req, res);
+      
+      const requestTime = Date.now() - requestStartTime;
+      
+      // Verificar si la respuesta se envió
+      if (res.headersSent) {
+        console.log(`[VERCEL HANDLER] Response already sent (headers sent: true) in ${requestTime}ms`);
+      } else {
+        console.log(`[VERCEL HANDLER] WARNING: Response not sent after ${requestTime}ms - headers sent: false`);
+      }
+      
+      console.log(`[VERCEL HANDLER] Request completed in ${requestTime}ms total`);
+      
+      return result;
+    } catch (handlerError) {
+      console.error(`[VERCEL HANDLER] Handler execution error:`, handlerError);
+      throw handlerError;
+    }
   } catch (error) {
     const requestTime = Date.now() - requestStartTime;
     console.error(`[VERCEL HANDLER] ERROR after ${requestTime}ms:`, error);
