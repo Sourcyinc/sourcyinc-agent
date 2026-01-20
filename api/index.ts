@@ -263,6 +263,8 @@ async function initializeApp() {
       });
 
       // Create serverless handler
+      // NOTA: serverless-http transforma el request de Vercel a Express
+      // El path se preserva desde req.url que ya tiene el path original antes del rewrite
       handler = serverless(app, {
         binary: ['image/*', 'application/pdf', 'application/octet-stream']
       });
@@ -287,27 +289,57 @@ export default async function vercelHandler(
 ) {
   const requestStartTime = Date.now();
   
-  // CRÍTICO: Restaurar el path original
-  // Vercel hace rewrite a "/api", pero req.url contiene el path original antes del rewrite
-  // Necesitamos usar req.url directamente, no el path del destino del rewrite
+  // CRÍTICO: Restaurar el path original del rewrite de Vercel
+  // Cuando Vercel hace rewrite de "/api/chat" a "/api", el path se pierde
+  // Necesitamos restaurar el path original ANTES de pasar el request a serverless-http
   const originalUrl = req.url || '/';
   
   console.log(`[VERCEL HANDLER] Function called at ${new Date().toISOString()}`);
-  console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}, Path: ${req.path}`);
+  console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}, Path: ${(req as any).path}`);
   console.log(`[VERCEL HANDLER] Query:`, req.query);
   
-  // Si req.url es solo "/api" o "/", necesitamos usar el path completo
-  // En Vercel, cuando hay rewrite, req.url puede ser "/" pero el path real está en otra parte
-  // Usar req.url directamente - debería tener el path completo
-  const requestPath = originalUrl;
+  // Obtener el path original desde los query params o headers
+  // Vercel puede pasar el path original en req.query cuando hace rewrite
+  const pathFromQuery = req.query.path || req.query._path;
   
-  // Restaurar el path en el request para que Express lo vea correctamente
-  if (req.url !== requestPath) {
-    console.log(`[VERCEL HANDLER] Restoring path: ${req.url} -> ${requestPath}`);
-    req.url = requestPath;
-    (req as any).path = requestPath.split('?')[0]; // Remover query string del path
-    (req as any).originalUrl = requestPath;
+  // O intentar extraerlo de los headers de Vercel
+  const forwardedHost = req.headers['x-forwarded-host'] || '';
+  const referer = req.headers['referer'] || '';
+  
+  let requestPath = originalUrl;
+  
+  // Si req.url es "/" o "/api" (destino del rewrite), necesitamos el path original
+  if ((originalUrl === '/' || originalUrl === '/api') && !pathFromQuery) {
+    // Intentar extraer desde el referer
+    if (referer) {
+      try {
+        const refererUrl = new URL(referer);
+        requestPath = refererUrl.pathname;
+        console.log(`[VERCEL HANDLER] Extracted path from referer: ${requestPath}`);
+      } catch (e) {
+        console.log(`[VERCEL HANDLER] Could not parse referer: ${referer}`);
+      }
+    }
+    
+    // Si aún no tenemos el path, el rewrite puede haber puesto el path original en query
+    // O necesitamos usar otro método
+    if (requestPath === '/' || requestPath === '/api') {
+      // Usar el path completo del referer o mantener el original
+      console.log(`[VERCEL HANDLER] Warning: Could not restore path, using: ${requestPath}`);
+    }
+  } else if (pathFromQuery) {
+    // Si el path está en query params
+    requestPath = Array.isArray(pathFromQuery) ? pathFromQuery[0] : pathFromQuery as string;
+    console.log(`[VERCEL HANDLER] Restored path from query: ${requestPath}`);
   }
+  
+  // CRÍTICO: Restaurar el path en el request ANTES de pasarlo a serverless-http
+  // Necesitamos modificar el request object para que Express vea el path correcto
+  (req as any).url = requestPath;
+  (req as any).path = requestPath.split('?')[0]; // Remover query string
+  (req as any).originalUrl = requestPath;
+  
+  console.log(`[VERCEL HANDLER] Final path: ${requestPath}`);
   
   try {
     // Respuesta inmediata si es un health check simple
@@ -330,10 +362,18 @@ export default async function vercelHandler(
     const initTime = Date.now() - initStartTime;
     console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
-    // Ejecutar el handler serverless con el path restaurado
+    // Ejecutar el handler serverless
     console.log(`[VERCEL HANDLER] Executing serverless handler for ${req.method} ${requestPath}`);
     
     try {
+      // El path ya fue modificado arriba en req.url, req.path, req.originalUrl
+      // Ahora solo necesitamos pasarlo a serverless-http
+      console.log(`[VERCEL HANDLER] Request before serverless-http:`);
+      console.log(`  - req.url: ${(req as any).url}`);
+      console.log(`  - req.path: ${(req as any).path}`);
+      console.log(`  - req.originalUrl: ${(req as any).originalUrl}`);
+      console.log(`  - req.method: ${req.method}`);
+      
       // serverless-http maneja automáticamente la promesa de Express
       const result = await serverlessHandler(req, res);
       
