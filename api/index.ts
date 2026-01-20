@@ -1,7 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 import serverless from "serverless-http";
 import express from "express";
-import { createServer } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -18,8 +17,8 @@ const chatMessageSchema = z.object({
 // N8N webhook URL (from server/routes.ts)
 const N8N_WEBHOOK_URL = "https://n8n.arkoswearshop.com/webhook/03c90cf6-deaf-4151-bd38-4b2c06ee0d48";
 
-// Register routes function (copied from server/routes.ts)
-async function registerRoutes(httpServer: any, app: express.Express) {
+// Register routes function - SIMPLIFICADO para serverless (NO necesita httpServer)
+function registerRoutes(app: express.Express) {
   // Health check endpoint - para verificar que el servidor está funcionando
   app.get("/api/health", (req, res) => {
     console.log("[GET /api/health] Health check requested");
@@ -102,17 +101,16 @@ async function registerRoutes(httpServer: any, app: express.Express) {
       }
     }
   });
-
-  return httpServer;
+  
+  // No necesitamos retornar httpServer en serverless
 }
 
 // Get __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Create Express app
+// Create Express app (NO crear servidor HTTP - no necesario en serverless)
 const app = express();
-const httpServer = createServer(app);
 
 // Middleware
 app.use(
@@ -168,7 +166,7 @@ async function initializeApp() {
       const startTime = Date.now();
       
       // PRIMERO y MÁS IMPORTANTE: Registrar rutas de API (debe estar ANTES de todo)
-      await registerRoutes(httpServer, app);
+      registerRoutes(app);  // No es async, no necesita await
       console.log("[InitializeApp] API routes registered");
       
       // Error handler
