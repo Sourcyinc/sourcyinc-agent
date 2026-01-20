@@ -165,8 +165,9 @@ async function initializeApp() {
   initPromise = (async () => {
     try {
       console.log("[InitializeApp] Starting initialization...");
+      const startTime = Date.now();
       
-      // PRIMERO: Registrar rutas de API (esto es crítico - debe estar antes del catch-all)
+      // PRIMERO y MÁS IMPORTANTE: Registrar rutas de API (debe estar ANTES de todo)
       await registerRoutes(httpServer, app);
       console.log("[InitializeApp] API routes registered");
       
@@ -180,90 +181,75 @@ async function initializeApp() {
         }
       });
 
-      // DESPUÉS: Serve static files and handle SPA routing (solo para rutas NO-API)
-      // Optimizar: solo buscar archivos estáticos si no es una ruta de API
-      const possiblePaths = [
-        path.resolve(process.cwd(), "dist", "public"),
-        path.resolve(process.cwd(), "..", "dist", "public"),
-        path.resolve(__dirname, "..", "dist", "public"),
-        path.resolve(__dirname, "..", "..", "dist", "public"),
-      ];
-
-      let distPath: string | null = null;
-      for (const testPath of possiblePaths) {
-        if (fs.existsSync(testPath)) {
-          distPath = testPath;
+      // OPTIMIZACIÓN: Buscar archivos estáticos de forma rápida (solo un path más probable)
+      // En Vercel, los archivos están en process.cwd()/dist/public
+      const distPath = path.resolve(process.cwd(), "dist", "public");
+      let staticFilesFound = false;
+      
+      try {
+        // Solo verificar si existe, sin buscar en múltiples lugares
+        if (fs.existsSync(distPath)) {
+          staticFilesFound = true;
           console.log(`[InitializeApp] Found static files at: ${distPath}`);
-          break;
+          
+          // Serve static files (JS, CSS, images, etc.)
+          app.use(express.static(distPath, {
+            maxAge: "1y",
+            immutable: true
+          }));
+          
+          // Catch-all para SPA routing (solo GET, solo rutas NO-API)
+          app.get("*", (req, res, next) => {
+            if (req.path.startsWith("/api")) {
+              return next();
+            }
+            const indexPath = path.resolve(distPath, "index.html");
+            if (fs.existsSync(indexPath)) {
+              res.sendFile(indexPath);
+            } else {
+              next();
+            }
+          });
         }
+      } catch (staticError) {
+        console.warn("[InitializeApp] Error setting up static files:", staticError);
+        // Continuar sin archivos estáticos - las rutas de API seguirán funcionando
       }
 
-      if (distPath) {
-        // Serve static files (JS, CSS, images, etc.)
-        app.use(express.static(distPath, {
-          maxAge: "1y",
-          immutable: true
-        }));
-        
-        // IMPORTANTE: Este catch-all debe ir DESPUÉS de las rutas de API
-        // Solo para rutas GET que NO sean de API (para el SPA)
+      if (!staticFilesFound) {
+        console.warn("[InitializeApp] Static files not found - API routes will still work");
+        // Catch-all mínimo para rutas NO-API
         app.get("*", (req, res, next) => {
-          // Si es una ruta de API, NO hacer nada (debe ser manejado por las rutas de API arriba)
           if (req.path.startsWith("/api")) {
-            return next(); // Pasar al siguiente middleware (debería retornar 404 si no encontró la ruta)
+            return next();
           }
-          
-          // Solo servir index.html para rutas NO-API (SPA routing)
-          const indexPath = path.resolve(distPath!, "index.html");
-          if (fs.existsSync(indexPath)) {
-            res.sendFile(indexPath);
-          } else {
-            console.error(`[InitializeApp] index.html not found at: ${indexPath}`);
-            if (!res.headersSent) {
-              res.status(500).json({ 
-                error: "index.html not found",
-                path: indexPath
-              });
-            }
-          }
-        });
-        
-        // Para otros métodos HTTP en rutas NO-API, retornar 404
-        app.use("*", (req, res) => {
-          if (req.path.startsWith("/api")) {
-            // Si llegó aquí y es una ruta de API, significa que no se encontró el handler
-            if (!res.headersSent) {
-              res.status(404).json({ error: "API route not found", path: req.path });
-            }
-          } else {
-            // Para rutas no-API con métodos que no sean GET, solo servir index.html si es GET
-            // De lo contrario, 404
-            if (!res.headersSent) {
-              res.status(404).json({ error: "Route not found", path: req.path, method: req.method });
-            }
-          }
-        });
-      } else {
-        console.warn("[InitializeApp] Static files not found, API will still work");
-        // No fallback para archivos estáticos si no se encuentran
-        // Pero las rutas de API seguirán funcionando
-        app.get("*", (req, res) => {
-          if (req.path.startsWith("/api")) {
-            res.status(404).json({ error: "API route not found" });
-          } else {
-            res.status(500).json({ 
-              error: "Static files not found. Build may have failed."
-            });
+          if (!res.headersSent) {
+            res.status(404).json({ error: "Route not found", path: req.path });
           }
         });
       }
+
+      // Catch-all para otros métodos HTTP
+      app.use("*", (req, res) => {
+        if (req.path.startsWith("/api")) {
+          if (!res.headersSent) {
+            res.status(404).json({ error: "API route not found", path: req.path });
+          }
+        } else if (req.method !== "GET") {
+          if (!res.headersSent) {
+            res.status(404).json({ error: "Route not found", path: req.path, method: req.method });
+          }
+        }
+      });
 
       // Create serverless handler
       handler = serverless(app, {
         binary: ['image/*', 'application/pdf', 'application/octet-stream']
       });
+      
       appInitialized = true;
-      console.log("[InitializeApp] Initialization complete");
+      const initTime = Date.now() - startTime;
+      console.log(`[InitializeApp] Initialization complete in ${initTime}ms`);
     } catch (error) {
       console.error("[InitializeApp] Error:", error);
       throw error;
@@ -279,35 +265,53 @@ export default async function vercelHandler(
   req: VercelRequest,
   res: VercelResponse
 ) {
-  // Agregar timeout para evitar que la función tarde demasiado
-  const timeout = setTimeout(() => {
-    if (!res.headersSent) {
-      console.error("Function timeout after 25 seconds");
-      res.status(504).json({ 
-        error: "Gateway timeout",
-        message: "The request took too long to process"
+  const requestStartTime = Date.now();
+  
+  // LOG INMEDIATO para verificar que la función se ejecuta
+  console.log(`[VERCEL HANDLER] Function called at ${new Date().toISOString()}`);
+  console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}`);
+  console.log(`[VERCEL HANDLER] Headers:`, JSON.stringify(req.headers, null, 2));
+  
+  try {
+    // Respuesta inmediata si es un health check simple
+    if (req.url === "/api/health" && req.method === "GET") {
+      console.log("[VERCEL HANDLER] Fast path for health check");
+      return res.json({
+        status: "ok",
+        timestamp: new Date().toISOString(),
+        handler: "vercelHandler",
+        initialization: "pending"
       });
     }
-  }, 25000); // 25 segundos (menos que el límite de Vercel de 10s en free, 60s en pro)
-
-  try {
-    console.log(`[${new Date().toISOString()}] Incoming request: ${req.method} ${req.url}`);
+    
+    console.log(`[VERCEL HANDLER] Starting initialization...`);
+    const initStartTime = Date.now();
+    
+    // Inicializar la app
     const serverlessHandler = await initializeApp();
     
-    // Limpiar timeout si la función se completa
-    clearTimeout(timeout);
+    const initTime = Date.now() - initStartTime;
+    console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
+    // Ejecutar el handler
     const result = await serverlessHandler(req, res);
+    
+    const requestTime = Date.now() - requestStartTime;
+    console.log(`[VERCEL HANDLER] Request completed in ${requestTime}ms total`);
+    
     return result;
   } catch (error) {
-    clearTimeout(timeout);
-    console.error("Handler error:", error);
+    const requestTime = Date.now() - requestStartTime;
+    console.error(`[VERCEL HANDLER] ERROR after ${requestTime}ms:`, error);
+    console.error(`[VERCEL HANDLER] Error stack:`, error instanceof Error ? error.stack : "No stack");
     
     if (!res.headersSent) {
       res.status(500).json({ 
         error: "Internal server error",
         message: error instanceof Error ? error.message : String(error),
-        stack: error instanceof Error ? error.stack : undefined
+        timestamp: new Date().toISOString(),
+        handler: "vercelHandler",
+        errorType: error instanceof Error ? error.constructor.name : typeof error
       });
     }
   }

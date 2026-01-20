@@ -4,13 +4,16 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api"
     }
   ],
   "functions": {
     "api/index.ts": {
-      "includeFiles": "dist/public/**",
       "maxDuration": 60
     }
   }
