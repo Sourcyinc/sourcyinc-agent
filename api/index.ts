@@ -162,6 +162,7 @@ app.use((req, res, next) => {
 let appInitialized = false;
 let initPromise: Promise<void> | null = null;
 let handler: ReturnType<typeof serverless> | null = null;
+let expressApp: express.Express | null = null;
 
 async function initializeApp() {
   if (appInitialized && handler) return handler;
@@ -262,11 +263,15 @@ async function initializeApp() {
         }
       });
 
+      // Guardar la instancia de Express app
+      expressApp = app;
+      
       // Create serverless handler
-      // NOTA: serverless-http transforma el request de Vercel a Express
-      // El path se preserva desde req.url que ya tiene el path original antes del rewrite
+      // IMPORTANTE: Configurar serverless-http para preservar método y path
       handler = serverless(app, {
-        binary: ['image/*', 'application/pdf', 'application/octet-stream']
+        binary: ['image/*', 'application/pdf', 'application/octet-stream'],
+        // Opción para manejar el request antes de que serverless-http lo transforme
+        // Esto no está disponible directamente, así que lo manejamos en el handler principal
       });
       
       appInitialized = true;
@@ -342,8 +347,10 @@ export default async function vercelHandler(
   console.log(`[VERCEL HANDLER] Final path: ${requestPath}`);
   
   try {
+    const originalMethod = req.method;
+    
     // Respuesta inmediata si es un health check simple
-    if (requestPath === "/api/health" && req.method === "GET") {
+    if (requestPath === "/api/health" && originalMethod === "GET") {
       console.log("[VERCEL HANDLER] Fast path for health check");
       return res.json({
         status: "ok",
@@ -362,19 +369,77 @@ export default async function vercelHandler(
     const initTime = Date.now() - initStartTime;
     console.log(`[VERCEL HANDLER] Initialization completed in ${initTime}ms`);
     
-    // Ejecutar el handler serverless
-    console.log(`[VERCEL HANDLER] Executing serverless handler for ${req.method} ${requestPath}`);
+    // CRÍTICO: serverless-http está cambiando POST a GET cuando procesa el request
+    // El problema es que cuando Vercel hace rewrite, serverless-http interpreta mal el método
+    // Solución: Interceptar las rutas de API conocidas directamente
+    if (requestPath === "/api/chat" && originalMethod === "POST") {
+      console.log(`[VERCEL HANDLER] Intercepting POST /api/chat - calling Express directly`);
+      
+      // Usar la app de Express directamente para esta ruta específica
+      // Necesitamos crear un request de Express correcto
+      const expressReq = Object.assign(req, {
+        method: 'POST',
+        url: '/api/chat',
+        path: '/api/chat',
+        originalUrl: '/api/chat',
+        baseUrl: '',
+        route: undefined
+      });
+      
+      // Simular el request a Express directamente
+      // Pero mejor: usar el handler pero con el método preservado
+      // En realidad, lo mejor es llamar directamente a la función del endpoint
+      
+      // Obtener el body del request
+      let body = {};
+      if (req.body) {
+        body = req.body;
+      } else if (req.headers['content-type']?.includes('application/json')) {
+        try {
+          // El body puede estar en req.body ya parseado por Vercel
+          body = req.body || {};
+        } catch (e) {
+          console.error("[VERCEL HANDLER] Error parsing body:", e);
+        }
+      }
+      
+      // Llamar directamente al endpoint de chat
+      console.log(`[VERCEL HANDLER] Direct call to /api/chat with body:`, body);
+      
+      // Mejor: usar el handler serverless pero asegurando que preserve el método
+      // Necesitamos usar un wrapper
+      const wrappedReq = {
+        ...req,
+        method: 'POST',
+        url: '/api/chat',
+        path: '/api/chat',
+        originalUrl: '/api/chat',
+        headers: { ...req.headers },
+        body: body,
+        query: req.query || {},
+      } as any;
+      
+      // Preservar el método HTTP original
+      Object.defineProperty(wrappedReq, 'method', {
+        value: 'POST',
+        writable: false,
+        enumerable: true,
+        configurable: false
+      });
+      
+      return await serverlessHandler(wrappedReq, res);
+    }
+    
+    // Para otras rutas, usar el handler normal
+    console.log(`[VERCEL HANDLER] Executing serverless handler for ${originalMethod} ${requestPath}`);
+    
+    // Modificar el request para preservar método y path
+    (req as any).method = originalMethod;
+    (req as any).url = requestPath;
+    (req as any).path = requestPath.split('?')[0];
+    (req as any).originalUrl = requestPath;
     
     try {
-      // El path ya fue modificado arriba en req.url, req.path, req.originalUrl
-      // Ahora solo necesitamos pasarlo a serverless-http
-      console.log(`[VERCEL HANDLER] Request before serverless-http:`);
-      console.log(`  - req.url: ${(req as any).url}`);
-      console.log(`  - req.path: ${(req as any).path}`);
-      console.log(`  - req.originalUrl: ${(req as any).originalUrl}`);
-      console.log(`  - req.method: ${req.method}`);
-      
-      // serverless-http maneja automáticamente la promesa de Express
       const result = await serverlessHandler(req, res);
       
       const requestTime = Date.now() - requestStartTime;
