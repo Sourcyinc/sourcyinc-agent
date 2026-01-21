@@ -213,9 +213,34 @@ async function initializeApp() {
             immutable: true
           }));
           
+          // Serve robots.txt and sitemap.xml explicitly (important for SEO)
+          app.get("/robots.txt", (req, res) => {
+            const robotsPath = path.resolve(distPath, "robots.txt");
+            if (fs.existsSync(robotsPath)) {
+              res.type("text/plain");
+              res.sendFile(robotsPath);
+            } else {
+              res.status(404).send("Not found");
+            }
+          });
+          
+          app.get("/sitemap.xml", (req, res) => {
+            const sitemapPath = path.resolve(distPath, "sitemap.xml");
+            if (fs.existsSync(sitemapPath)) {
+              res.type("application/xml");
+              res.sendFile(sitemapPath);
+            } else {
+              res.status(404).send("Not found");
+            }
+          });
+          
           // Catch-all para SPA routing (solo GET, solo rutas NO-API)
           app.get("*", (req, res, next) => {
             if (req.path.startsWith("/api")) {
+              return next();
+            }
+            // Skip robots.txt and sitemap.xml (already handled above)
+            if (req.path === "/robots.txt" || req.path === "/sitemap.xml") {
               return next();
             }
             const indexPath = path.resolve(distPath, "index.html");
