@@ -720,10 +720,21 @@ function TextAgentWidget({ tryMeOutButtonRef }: { tryMeOutButtonRef?: React.RefO
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatWidgetRef = useRef<HTMLDivElement>(null);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Generate a unique chat session ID
   const generateChatId = (): string => {
@@ -810,6 +821,20 @@ function TextAgentWidget({ tryMeOutButtonRef }: { tryMeOutButtonRef?: React.RefO
       }, 200);
     }
   }, [isOpen]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // En mobile: Enter envía el mensaje (comportamiento de chat normal)
+    // En desktop: Enter sin Shift = salto de línea, Shift+Enter también = salto de línea
+    if (e.key === "Enter" && !e.shiftKey) {
+      if (isMobile) {
+        e.preventDefault();
+        if (inputValue.trim()) {
+          handleSend();
+        }
+      }
+      // En desktop, no hacemos nada - permite el salto de línea por defecto
+    }
+  };
 
   const handleSend = async () => {
     if (!inputValue.trim()) return;
@@ -975,7 +1000,9 @@ function TextAgentWidget({ tryMeOutButtonRef }: { tryMeOutButtonRef?: React.RefO
                   ref={textareaRef}
                   value={inputValue}
                   onChange={(e) => setInputValue(e.target.value)}
-                  placeholder="Type a message... (Press Enter for new line)"
+                  onKeyDown={handleKeyDown}
+                  placeholder={isMobile ? "Type a message..." : "Type a message... (Press Enter for new line)"}
+                  enterKeyHint={isMobile ? "send" : undefined}
                   className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:border-emerald-500/50 placeholder:text-slate-600 resize-none overflow-hidden min-h-[40px] max-h-[120px] leading-relaxed"
                   rows={1}
                 />
@@ -987,13 +1014,15 @@ function TextAgentWidget({ tryMeOutButtonRef }: { tryMeOutButtonRef?: React.RefO
                   <Send className="h-4 w-4" />
                 </button>
               </div>
-              <p className="text-xs text-slate-500 mt-2 text-center">
-                Press{" "}
-                <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
-                  Enter
-                </kbd>{" "}
-                for a new line, click the send button to send your message
-              </p>
+              {!isMobile && (
+                <p className="text-xs text-slate-500 mt-2 text-center">
+                  Press{" "}
+                  <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
+                    Enter
+                  </kbd>{" "}
+                  for a new line, click the send button to send your message
+                </p>
+              )}
             </div>
           </motion.div>
         ) : (

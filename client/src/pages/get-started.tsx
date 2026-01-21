@@ -24,8 +24,19 @@ export default function GetStarted() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Generate a unique chat session ID
   const generateChatId = (): string => {
@@ -114,6 +125,20 @@ export default function GetStarted() {
       }, 1000);
     }
   }, [chatOpen]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // En mobile: Enter envía el mensaje (comportamiento de chat normal)
+    // En desktop: Enter sin Shift = salto de línea, Shift+Enter también = salto de línea
+    if (e.key === "Enter" && !e.shiftKey) {
+      if (isMobile) {
+        e.preventDefault();
+        if (inputValue.trim()) {
+          handleSendMessage();
+        }
+      }
+      // En desktop, no hacemos nada - permite el salto de línea por defecto
+    }
+  };
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return;
@@ -351,7 +376,7 @@ export default function GetStarted() {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3 }}
               className="w-full max-w-lg bg-slate-900 rounded-2xl shadow-2xl shadow-cyan-500/20 overflow-hidden flex flex-col border border-cyan-500/20"
-              style={{ maxHeight: "85vh" }}
+              style={{ maxHeight: "90vh" }}
             >
               <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-5 flex items-center justify-between border-b border-cyan-500/20">
                 <div className="flex items-center gap-4">
@@ -446,7 +471,9 @@ export default function GetStarted() {
                     ref={textareaRef}
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Type your message... (Press Enter for new line)"
+                    onKeyDown={handleKeyDown}
+                    placeholder={isMobile ? "Type your message..." : "Type your message... (Press Enter for new line)"}
+                    enterKeyHint={isMobile ? "send" : undefined}
                     className="flex-1 bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500 transition-colors resize-none overflow-hidden min-h-[48px] max-h-[120px] leading-relaxed"
                     rows={1}
                     data-testid="input-chat-message"
@@ -460,13 +487,15 @@ export default function GetStarted() {
                     <Send className="h-5 w-5" />
                   </Button>
                 </div>
-                <p className="text-xs text-slate-500 mt-3 text-center">
-                  Press{" "}
-                  <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
-                    Enter
-                  </kbd>{" "}
-                  for a new line, click the send button to send your message
-                </p>
+                {!isMobile && (
+                  <p className="text-xs text-slate-500 mt-3 text-center">
+                    Press{" "}
+                    <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-100 border border-gray-300 rounded">
+                      Enter
+                    </kbd>{" "}
+                    for a new line, click the send button to send your message
+                  </p>
+                )}
               </div>
             </motion.div>
           </motion.div>
