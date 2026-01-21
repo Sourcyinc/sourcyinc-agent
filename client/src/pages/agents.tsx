@@ -152,8 +152,9 @@ export default function Agents() {
     tabFromUrl === "text" ? "text" : "voice",
   );
   const [customModalOpen, setCustomModalOpen] = useState(false);
+  const tryMeOutButtonRef = useRef<HTMLButtonElement>(null);
 
-  // Handle deep links from footer
+  // Handle deep links from footer and scroll to "Try me Out" button when switching to text tab
   useEffect(() => {
     const sectionFromUrl = urlParams.get("section");
 
@@ -176,6 +177,30 @@ export default function Agents() {
       }, 100);
     }
   }, [tabFromUrl, searchString]);
+
+  // Scroll to "Try me Out" button when switching to text tab
+  useEffect(() => {
+    if (activeTab === "text") {
+      // Wait for the widget to render, then scroll smoothly to the button
+      setTimeout(() => {
+        if (tryMeOutButtonRef.current) {
+          tryMeOutButtonRef.current.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "center",
+            inline: "nearest"
+          });
+          // Add a subtle highlight effect to draw attention
+          tryMeOutButtonRef.current.style.transition = "all 0.3s ease";
+          tryMeOutButtonRef.current.style.transform = "scale(1.05)";
+          setTimeout(() => {
+            if (tryMeOutButtonRef.current) {
+              tryMeOutButtonRef.current.style.transform = "scale(1)";
+            }
+          }, 500);
+        }
+      }, 500); // Increased delay to ensure the widget is fully rendered
+    }
+  }, [activeTab]);
   const [customForm, setCustomForm] = useState({
     name: "",
     last_name: "",
@@ -274,7 +299,7 @@ export default function Agents() {
 
           {/* Primary Try Me Out CTA - Conditional based on active tab */}
           {activeTab === "voice" && <VoiceAgentWidget />}
-          {activeTab === "text" && <TextAgentWidget />}
+          {activeTab === "text" && <TextAgentWidget tryMeOutButtonRef={tryMeOutButtonRef} />}
 
           <TabsContent value="voice">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -688,7 +713,7 @@ function ArrowRight(props: any) {
   );
 }
 
-function TextAgentWidget() {
+function TextAgentWidget({ tryMeOutButtonRef }: { tryMeOutButtonRef?: React.RefObject<HTMLButtonElement | null> }) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     { role: "agent", text: "Hello! I'm Mr. Sourcy. How can I help you today?" },
@@ -696,6 +721,9 @@ function TextAgentWidget() {
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const chatContainerRef = useRef<HTMLDivElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const chatWidgetRef = useRef<HTMLDivElement>(null);
 
   // Generate a unique chat session ID
   const generateChatId = (): string => {
@@ -727,12 +755,78 @@ function TextAgentWidget() {
     }
   }, [inputValue]);
 
+  // Auto-scroll to bottom when messages change or typing status changes
+  useEffect(() => {
+    if (messagesEndRef.current && chatContainerRef.current) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ 
+          behavior: "smooth",
+          block: "nearest"
+        });
+      }, 50);
+    }
+  }, [messages, isTyping]);
+
+  // Also scroll when chat container is scrolled manually and a new message arrives
+  useEffect(() => {
+    const container = chatContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      // When user scrolls manually, we can track if they're near bottom
+      const isNearBottom = 
+        container.scrollHeight - container.scrollTop - container.clientHeight < 100;
+      
+      // Store scroll position preference
+      (container as any).userScrolledUp = !isNearBottom;
+    };
+
+    container.addEventListener("scroll", handleScroll);
+    return () => container.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Scroll to chat when it opens
+  useEffect(() => {
+    if (isOpen && chatWidgetRef.current) {
+      // Wait for animation to start, then scroll smoothly
+      setTimeout(() => {
+        chatWidgetRef.current?.scrollIntoView({ 
+          behavior: "smooth", 
+          block: "center",
+          inline: "nearest"
+        });
+        // Focus on textarea and scroll to bottom after scroll animation completes
+        setTimeout(() => {
+          textareaRef.current?.focus();
+          // Ensure we scroll to the last message
+          if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ 
+              behavior: "smooth",
+              block: "nearest"
+            });
+          }
+        }, 1000); // Increased timeout to allow scroll animation to complete
+      }, 200);
+    }
+  }, [isOpen]);
+
   const handleSend = async () => {
     if (!inputValue.trim()) return;
 
     setMessages((prev) => [...prev, { role: "user", text: inputValue }]);
     const messageText = inputValue;
     setInputValue("");
+
+    // Scroll to bottom immediately when user sends message
+    setTimeout(() => {
+      if (messagesEndRef.current) {
+        messagesEndRef.current.scrollIntoView({ 
+          behavior: "smooth",
+          block: "nearest"
+        });
+      }
+    }, 50);
 
     setIsTyping(true);
 
@@ -773,6 +867,16 @@ function TextAgentWidget() {
               "Thanks for your message! Our team will get back to you shortly.",
           },
         ]);
+        
+        // Force scroll to bottom after new message is added
+        setTimeout(() => {
+          if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ 
+              behavior: "smooth",
+              block: "nearest"
+            });
+          }
+        }, 100);
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -793,6 +897,7 @@ function TextAgentWidget() {
         {isOpen ? (
           <motion.div
             key="chat"
+            ref={chatWidgetRef}
             initial={{ opacity: 0, y: 10, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.98 }}
@@ -823,7 +928,11 @@ function TextAgentWidget() {
             </div>
 
             {/* Chat Body */}
-            <div className="h-80 overflow-y-auto p-4 space-y-4 bg-slate-950/50">
+            <div 
+              ref={chatContainerRef}
+              className="h-80 overflow-y-auto p-4 space-y-4 bg-slate-950/50 scroll-smooth"
+              style={{ scrollBehavior: "smooth" }}
+            >
               {messages.map((msg, i) => (
                 <div
                   key={i}
@@ -836,6 +945,27 @@ function TextAgentWidget() {
                   </div>
                 </div>
               ))}
+              {isTyping && (
+                <div className="flex justify-start">
+                  <div className="bg-slate-800 text-slate-400 px-3 py-2 rounded-xl border border-slate-700">
+                    <div className="flex gap-1.5">
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "0ms" }}
+                      />
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "150ms" }}
+                      />
+                      <div
+                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
+                        style={{ animationDelay: "300ms" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
             </div>
 
             {/* Chat Input */}
@@ -864,26 +994,6 @@ function TextAgentWidget() {
                 </kbd>{" "}
                 for a new line, click the send button to send your message
               </p>
-              {isTyping && (
-                <div className="flex justify-start mt-2">
-                  <div className="bg-slate-800 text-slate-400 px-3 py-2 rounded-xl border border-slate-700">
-                    <div className="flex gap-1.5">
-                      <div
-                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "0ms" }}
-                      />
-                      <div
-                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "150ms" }}
-                      />
-                      <div
-                        className="h-1.5 w-1.5 bg-emerald-400 rounded-full animate-bounce"
-                        style={{ animationDelay: "300ms" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           </motion.div>
         ) : (
@@ -895,6 +1005,7 @@ function TextAgentWidget() {
             className="flex flex-col items-center"
           >
             <button
+              ref={tryMeOutButtonRef}
               onClick={() => setIsOpen(true)}
               className="group flex items-center justify-center gap-5 bg-slate-900 border-2 border-emerald-500/40 hover:border-emerald-400 text-emerald-400 px-16 py-5 rounded-full shadow-xl shadow-emerald-500/10 hover:shadow-emerald-500/20 transition-all duration-300 hover:scale-105 min-w-[320px]"
             >

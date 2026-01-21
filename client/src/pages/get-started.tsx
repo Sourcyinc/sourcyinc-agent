@@ -47,12 +47,32 @@ export default function GetStarted() {
   };
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
   };
 
+  // Auto-scroll when messages change or typing status changes
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isTyping]);
+
+  // Scroll to bottom after chat opens
+  useEffect(() => {
+    if (chatOpen) {
+      // Wait for chat to render, then scroll
+      setTimeout(() => {
+        scrollToBottom();
+        // Focus on textarea after scroll
+        setTimeout(() => {
+          textareaRef.current?.focus();
+        }, 600);
+      }, 300);
+    }
+  }, [chatOpen]);
 
   // Auto-resize textarea
   useEffect(() => {
@@ -108,6 +128,11 @@ export default function GetStarted() {
     const messageText = inputValue;
     setInputValue("");
 
+    // Scroll to bottom immediately when user sends message
+    setTimeout(() => {
+      scrollToBottom();
+    }, 50);
+
     setIsTyping(true);
 
     try {
@@ -149,6 +174,11 @@ export default function GetStarted() {
               "Thanks for your message! Our team will get back to you shortly.",
           },
         ]);
+        
+        // Force scroll to bottom after new message is added
+        setTimeout(() => {
+          scrollToBottom();
+        }, 100);
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -348,8 +378,8 @@ export default function GetStarted() {
               </div>
 
               <div
-                className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/50"
-                style={{ minHeight: "350px" }}
+                className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/50 scroll-smooth"
+                style={{ minHeight: "350px", scrollBehavior: "smooth" }}
               >
                 {messages.map((msg) => (
                   <motion.div
@@ -445,3 +475,4 @@ export default function GetStarted() {
     </div>
   );
 }
+
