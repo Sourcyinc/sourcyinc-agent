@@ -364,21 +364,34 @@ export default function GetStarted() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            className={`fixed inset-0 z-50 flex items-center justify-center ${
+              isMobile ? "p-0" : "p-4"
+            }`}
             style={{
-              background: "rgba(2, 6, 23, 0.85)",
-              backdropFilter: "blur(8px)",
+              background: isMobile 
+                ? "#020617" 
+                : "rgba(2, 6, 23, 0.85)",
+              backdropFilter: isMobile ? "none" : "blur(8px)",
             }}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              transition={{ duration: 0.3 }}
-              className="w-full max-w-lg bg-slate-900 rounded-2xl shadow-2xl shadow-cyan-500/20 overflow-hidden flex flex-col border border-cyan-500/20"
-              style={{ maxHeight: "90vh" }}
+              initial={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 20 }}
+              animate={isMobile ? { y: 0 } : { opacity: 1, scale: 1, y: 0 }}
+              exit={isMobile ? { y: "100%" } : { opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ duration: isMobile ? 0.4 : 0.3, ease: isMobile ? "easeOut" : "easeInOut" }}
+              className={`w-full ${
+                isMobile 
+                  ? "h-full max-w-none rounded-none" 
+                  : "max-w-lg rounded-2xl shadow-2xl shadow-cyan-500/20 border border-cyan-500/20"
+              } bg-slate-900 overflow-hidden flex flex-col`}
+              style={isMobile ? { maxHeight: "100vh" } : { maxHeight: "90vh" }}
             >
-              <div className="bg-gradient-to-r from-slate-800 to-slate-900 p-5 flex items-center justify-between border-b border-cyan-500/20">
+              <div 
+                className={`bg-gradient-to-r from-slate-800 to-slate-900 flex items-center justify-between border-b border-cyan-500/20 ${
+                  isMobile ? "p-4" : "p-5"
+                }`}
+                style={isMobile ? { paddingTop: "max(1rem, env(safe-area-inset-top))" } : {}}
+              >
                 <div className="flex items-center gap-4">
                   <div className="h-12 w-12 rounded-full bg-gradient-to-br from-cyan-500 to-teal-500 p-0.5">
                     <div className="h-full w-full rounded-full bg-slate-800 flex items-center justify-center">
@@ -403,8 +416,14 @@ export default function GetStarted() {
               </div>
 
               <div
-                className="flex-1 overflow-y-auto p-5 space-y-4 bg-slate-950/50 scroll-smooth"
-                style={{ minHeight: "350px", scrollBehavior: "smooth" }}
+                className={`flex-1 overflow-y-auto space-y-4 bg-slate-950/50 scroll-smooth ${
+                  isMobile ? "p-4" : "p-5"
+                }`}
+                style={{ 
+                  minHeight: isMobile ? "0" : "350px", 
+                  scrollBehavior: "smooth",
+                  height: isMobile ? "100%" : "auto"
+                }}
               >
                 {messages.map((msg) => (
                   <motion.div
@@ -465,7 +484,10 @@ export default function GetStarted() {
                 <div ref={messagesEndRef} />
               </div>
 
-              <div className="p-5 bg-slate-900 border-t border-cyan-500/20">
+              <div 
+                className={`bg-slate-900 border-t border-cyan-500/20 ${isMobile ? "p-4" : "p-5"}`}
+                style={isMobile ? { paddingBottom: "max(1rem, env(safe-area-inset-bottom))" } : {}}
+              >
                 <div className="flex gap-3 items-end">
                   <Textarea
                     ref={textareaRef}
