@@ -1112,7 +1112,7 @@ function VoiceAgentWidget() {
                 <div>
                   <h4 className="font-bold text-white text-sm">Talk to AI</h4>
                   <span className="text-[10px] text-cyan-300/80 uppercase tracking-wider font-medium">
-                    Request a Call
+                    Request a Call (Max 5 minutes)
                   </span>
                 </div>
               </div>
@@ -1287,7 +1287,7 @@ function VoiceAgentWidget() {
                     type="submit"
                     className="w-full bg-cyan-500 hover:bg-cyan-600 text-white font-medium py-2 rounded-lg transition-colors"
                   >
-                    Request a Call
+                    Request a Call (Max 5 minutes)
                   </Button>
                 </form>
               ) : (
