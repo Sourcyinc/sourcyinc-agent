@@ -1039,8 +1039,8 @@ export default function Pricing() {
                 <TableRow 
                   feature="Setup Time" 
                   tooltip="Time from contract to live deployment. Includes agent configuration, knowledge base setup, CRM connections, and testing."
-                  starter="5–10 Business Days" 
-                  pro="5–10 Business Days" 
+                  starter="10–15 Business Days" 
+                  pro="10–15 Business Days" 
                   custom="Varies" 
                   highlight
                 />

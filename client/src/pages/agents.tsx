@@ -22,7 +22,7 @@ import { useState, useRef, useEffect } from "react";
 const voiceAgents = [
   {
     title: "Lead Qualification",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Automatically handles inbound calls, qualifies real opportunities, and filters out low intent conversations.",
     icon: <Users className="h-6 w-6" />,
@@ -30,7 +30,7 @@ const voiceAgents = [
   },
   {
     title: "Proposal Follow up",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Follows up on proposals automatically, revives inactive deals, and keeps opportunities moving forward.",
     icon: <MessageSquare className="h-6 w-6" />,
@@ -38,7 +38,7 @@ const voiceAgents = [
   },
   {
     title: "Appointment Scheduling",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Handles scheduling conversations and books meetings automatically, without manual coordination.",
     icon: <Calendar className="h-6 w-6" />,
@@ -46,7 +46,7 @@ const voiceAgents = [
   },
   {
     title: "Customer Service",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Answers inbound calls around the clock, resolves common requests, and escalates when needed.",
     icon: <ShieldCheck className="h-6 w-6" />,
@@ -57,7 +57,7 @@ const voiceAgents = [
 const textAgents = [
   {
     title: "Lead Qualification",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Qualifies inbound leads via SMS or WhatsApp and routes high-intent prospects to your team.",
     icon: <MessageSquare className="h-6 w-6" />,
@@ -65,7 +65,7 @@ const textAgents = [
   },
   {
     title: "Proposal Follow-up",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Re-engages stalled deals with automated follow-ups that keep your pipeline moving.",
     icon: <MessageSquare className="h-6 w-6" />,
@@ -73,7 +73,7 @@ const textAgents = [
   },
   {
     title: "Appointment Scheduling",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Books meetings automatically via text, eliminating back-and-forth coordination.",
     icon: <Clock className="h-6 w-6" />,
@@ -81,7 +81,7 @@ const textAgents = [
   },
   {
     title: "Customer Service",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Handles support requests 24/7 via chat, resolving issues and escalating when needed.",
     icon: <ShieldCheck className="h-6 w-6" />,
@@ -89,7 +89,7 @@ const textAgents = [
   },
   {
     title: "Invoice Generator",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Creates and delivers invoices automatically, reducing manual billing overhead.",
     icon: <Zap className="h-6 w-6" />,
@@ -97,7 +97,7 @@ const textAgents = [
   },
   {
     title: "CRM Analysis",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Audits and enriches your CRM data, surfacing insights and cleaning inconsistencies.",
     icon: <BarChart3 className="h-6 w-6" />,
@@ -105,7 +105,7 @@ const textAgents = [
   },
   {
     title: "Payment Reminders",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Sends automated reminders for overdue invoices, improving collection rates.",
     icon: <TimerIcon className="h-6 w-6" />,
@@ -113,7 +113,7 @@ const textAgents = [
   },
   {
     title: "Portfolio Analysis",
-    time: "5 to 10 business days",
+    time: "10 to 15 business days",
     function:
       "Generates profitability reports by project, giving you visibility into performance.",
     icon: <BarChart3 className="h-6 w-6" />,

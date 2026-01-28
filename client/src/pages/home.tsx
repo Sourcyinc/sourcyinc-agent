@@ -951,7 +951,7 @@ export default function Home() {
                         }`}
                       >
                         <CheckCircle2 className="h-3 w-3" />
-                        <span>Voice • Ready in 5 to 10 business days</span>
+                        <span>Voice • Ready in 10 to 15 business days</span>
                       </div>
                     </div>
                   );
@@ -1105,7 +1105,7 @@ export default function Home() {
                         }`}
                       >
                         <CheckCircle2 className="h-3 w-3" />
-                        <span>Text • Ready in 5 to 10 business days</span>
+                        <span>Text • Ready in 10 to 15 business days</span>
                       </div>
                     </div>
                   );
