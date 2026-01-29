@@ -320,51 +320,75 @@ export default async function vercelHandler(
   const requestStartTime = Date.now();
   
   // CRÍTICO: Restaurar el path original del rewrite de Vercel
-  // Cuando Vercel hace rewrite de "/api/chat" a "/api", el path se pierde
-  // Necesitamos restaurar el path original ANTES de pasar el request a serverless-http
+  // Cuando Vercel hace rewrite, necesitamos restaurar el path original
   const originalUrl = req.url || '/';
   
   console.log(`[VERCEL HANDLER] Function called at ${new Date().toISOString()}`);
   console.log(`[VERCEL HANDLER] Method: ${req.method}, URL: ${req.url}, Path: ${(req as any).path}`);
   console.log(`[VERCEL HANDLER] Query:`, req.query);
+  console.log(`[VERCEL HANDLER] Headers:`, JSON.stringify(req.headers, null, 2));
   
-  // Obtener el path original desde los query params o headers
-  // Vercel puede pasar el path original en req.query cuando hace rewrite
+  // Obtener el path original desde los headers de Vercel
+  // Vercel puede pasar el path original en varios lugares
+  const xInvokePath = req.headers['x-invoke-path'] as string;
+  const xVercelOriginalPath = req.headers['x-vercel-original-path'] as string;
   const pathFromQuery = req.query.path || req.query._path;
-  
-  // O intentar extraerlo de los headers de Vercel
-  const forwardedHost = req.headers['x-forwarded-host'] || '';
   const referer = req.headers['referer'] || '';
   
+  // Determinar el path original
   let requestPath = originalUrl;
   
-  // Si req.url es "/" o "/api" (destino del rewrite), necesitamos el path original
-  if ((originalUrl === '/' || originalUrl === '/api') && !pathFromQuery) {
-    // Intentar extraer desde el referer
-    if (referer) {
-      try {
-        const refererUrl = new URL(referer);
-        requestPath = refererUrl.pathname;
-        console.log(`[VERCEL HANDLER] Extracted path from referer: ${requestPath}`);
-      } catch (e) {
-        console.log(`[VERCEL HANDLER] Could not parse referer: ${referer}`);
-      }
-    }
-    
-    // Si aún no tenemos el path, el rewrite puede haber puesto el path original en query
-    // O necesitamos usar otro método
-    if (requestPath === '/' || requestPath === '/api') {
-      // Usar el path completo del referer o mantener el original
-      console.log(`[VERCEL HANDLER] Warning: Could not restore path, using: ${requestPath}`);
-    }
-  } else if (pathFromQuery) {
-    // Si el path está en query params
+  // Prioridad 1: Headers de Vercel
+  if (xInvokePath) {
+    requestPath = xInvokePath;
+    console.log(`[VERCEL HANDLER] Using x-invoke-path: ${requestPath}`);
+  } else if (xVercelOriginalPath) {
+    requestPath = xVercelOriginalPath;
+    console.log(`[VERCEL HANDLER] Using x-vercel-original-path: ${requestPath}`);
+  } 
+  // Prioridad 2: Query params
+  else if (pathFromQuery) {
     requestPath = Array.isArray(pathFromQuery) ? pathFromQuery[0] : pathFromQuery as string;
-    console.log(`[VERCEL HANDLER] Restored path from query: ${requestPath}`);
+    console.log(`[VERCEL HANDLER] Using path from query: ${requestPath}`);
+  }
+  // Prioridad 3: Extraer del referer si el path es "/" o "/api"
+  else if ((originalUrl === '/' || originalUrl === '/api') && referer) {
+    try {
+      const refererUrl = new URL(referer);
+      requestPath = refererUrl.pathname;
+      console.log(`[VERCEL HANDLER] Extracted path from referer: ${requestPath}`);
+    } catch (e) {
+      console.log(`[VERCEL HANDLER] Could not parse referer: ${referer}`);
+    }
+  }
+  
+  // OPTIMIZACIÓN: Fast path para rutas de SPA (GET requests no-API)
+  // Esto evita inicializar Express para rutas simples como /get-started
+  // Si el path no se puede extraer y es "/" o "/api", asumimos que es una ruta de SPA
+  const isApiRoute = requestPath.startsWith('/api') || requestPath === '/api';
+  const isSpaRoute = req.method === 'GET' && !isApiRoute;
+  
+  if (isSpaRoute || (req.method === 'GET' && (requestPath === '/' || requestPath === '/api'))) {
+    const distPath = path.resolve(process.cwd(), "dist", "public");
+    const indexPath = path.resolve(distPath, "index.html");
+    
+    // Verificar si existe index.html y servirlo directamente
+    if (fs.existsSync(indexPath)) {
+      console.log(`[VERCEL HANDLER] Fast path: Serving index.html for ${requestPath} (isSpaRoute: ${isSpaRoute})`);
+      try {
+        res.setHeader('Content-Type', 'text/html');
+        res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+        return res.sendFile(indexPath);
+      } catch (error) {
+        console.error(`[VERCEL HANDLER] Error serving index.html:`, error);
+        // Continuar con el flujo normal si hay error
+      }
+    } else {
+      console.warn(`[VERCEL HANDLER] index.html not found at: ${indexPath}`);
+    }
   }
   
   // CRÍTICO: Restaurar el path en el request ANTES de pasarlo a serverless-http
-  // Necesitamos modificar el request object para que Express vea el path correcto
   (req as any).url = requestPath;
   (req as any).path = requestPath.split('?')[0]; // Remover query string
   (req as any).originalUrl = requestPath;

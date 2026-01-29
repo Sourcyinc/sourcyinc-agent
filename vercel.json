@@ -4,6 +4,10 @@
   "outputDirectory": "dist/public",
   "rewrites": [
     {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api"
     }
@@ -12,6 +16,17 @@
     "api/index.ts": {
       "maxDuration": 60
     }
-  }
+  },
+  "headers": [
+    {
+      "source": "/(.*\\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot|json|xml|txt|pdf|zip|webp|avif))",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
+  ]
 }
 
