@@ -376,9 +376,11 @@ export default async function vercelHandler(
     if (fs.existsSync(indexPath)) {
       console.log(`[VERCEL HANDLER] Fast path: Serving index.html for ${requestPath} (isSpaRoute: ${isSpaRoute})`);
       try {
+        // Leer el archivo y enviarlo (VercelResponse no tiene sendFile)
+        const htmlContent = fs.readFileSync(indexPath, 'utf-8');
         res.setHeader('Content-Type', 'text/html');
         res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
-        return res.sendFile(indexPath);
+        return res.send(htmlContent);
       } catch (error) {
         console.error(`[VERCEL HANDLER] Error serving index.html:`, error);
         // Continuar con el flujo normal si hay error
