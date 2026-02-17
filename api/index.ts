@@ -15,7 +15,7 @@ const chatMessageSchema = z.object({
 });
 
 // N8N webhook URL (from server/routes.ts)
-const N8N_WEBHOOK_URL = "https://n8n.arkoswearshop.com/webhook/03c90cf6-deaf-4151-bd38-4b2c06ee0d48";
+const N8N_WEBHOOK_URL = "https://n8n.sourcyinc.com/webhook-test/03c90cf6-deaf-4151-bd38-4b2c06ee0d48";
 
 // Register routes function - SIMPLIFICADO para serverless (NO necesita httpServer)
 function registerRoutes(app: express.Express) {

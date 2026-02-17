@@ -12,7 +12,7 @@ const chatMessageSchema = z.object({
 });
 
 // N8N webhook URL
-const N8N_WEBHOOK_URL = "https://n8n.arkoswearshop.com/webhook/03c90cf6-deaf-4151-bd38-4b2c06ee0d48";
+const N8N_WEBHOOK_URL = "https://n8n.sourcyinc.com/webhook/03c90cf6-deaf-4151-bd38-4b2c06ee0d48";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // put application routes here
