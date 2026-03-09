@@ -115,6 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 className="h-8 w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all" 
               />
             </Link>
+            <h3 className="text-white font-semibold mb-4">Sourcy™</h3>
             <p className="text-sm text-slate-400 leading-relaxed">
               Empowering businesses with intelligent AI agents. Automate conversations, workflows, and decision making at scale.
             </p>
